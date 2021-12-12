@@ -19,13 +19,18 @@ public class GpsUtilController {
     @Autowired
     GpsUtilServices gpsUtilServices;
 
+    private Logger logger = LoggerFactory.getLogger(GpsUtilController.class);
+
+    /**
+     * Return String
+     * @author Boniface Eric
+     * 01/12/2021
+     */
     @GetMapping(value = "/")
     public String home(){
         logger.info("GET /home");
         return "Welcome to GpsUtil";
     }
-
-    Logger logger = LoggerFactory.getLogger(GpsUtilController.class);
 
     /**
      * Return an user location as Json
@@ -50,5 +55,6 @@ public class GpsUtilController {
         logger.info("GET /getAttractions");
         return gpsUtilServices.getAttractions();
     }
+
 
 }

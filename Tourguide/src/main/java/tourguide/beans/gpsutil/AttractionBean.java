@@ -1,4 +1,4 @@
-package tourguide.beans;
+package tourguide.beans.gpsutil;
 
 import java.util.UUID;
 
