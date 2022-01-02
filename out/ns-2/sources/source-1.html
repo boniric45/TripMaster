@@ -1,0 +1,172 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GpsUtilController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">TourGuide_GpsUtil.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: GpsUtilController (TourGuide_GpsUtil.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GpsUtilController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package TourGuide_GpsUtil.controller;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import TourGuide_GpsUtil.services.GpsUtilServices;
+<i class="no-highlight">4</i>&nbsp;import gpsUtil.location.Attraction;
+<i class="no-highlight">5</i>&nbsp;import gpsUtil.location.VisitedLocation;
+<i class="no-highlight">6</i>&nbsp;import org.slf4j.Logger;
+<i class="no-highlight">7</i>&nbsp;import org.slf4j.LoggerFactory;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">9</i>&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+<i class="no-highlight">10</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i class="no-highlight">11</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;import java.util.List;
+<i class="no-highlight">14</i>&nbsp;import java.util.UUID;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;@RestController
+<i class="no-highlight">17</i>&nbsp;public class GpsUtilController {
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    @Autowired
+<i class="no-highlight">20</i>&nbsp;    GpsUtilServices gpsUtilServices;
+<i class="no-highlight">21</i>&nbsp;
+<b class="fc"><i class="no-highlight">22</i>&nbsp;    private Logger logger = LoggerFactory.getLogger(GpsUtilController.class);</b>
+<i class="no-highlight">23</i>&nbsp;
+<b class="fc"><i class="no-highlight">24</i>&nbsp;    public GpsUtilController(GpsUtilServices gpsUtilServices) {</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        this.gpsUtilServices = gpsUtilServices;</b>
+<i class="no-highlight">26</i>&nbsp;    }
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    /**
+<i class="no-highlight">29</i>&nbsp;     * Return String
+<i class="no-highlight">30</i>&nbsp;     *
+<i class="no-highlight">31</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">32</i>&nbsp;     * 01/12/2021
+<i class="no-highlight">33</i>&nbsp;     */
+<i class="no-highlight">34</i>&nbsp;    @GetMapping(value = &quot;/&quot;)
+<i class="no-highlight">35</i>&nbsp;    public String home() {
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        logger.info(&quot;GET /home&quot;);</b>
+<b class="fc"><i class="no-highlight">37</i>&nbsp;        return &quot;Welcome to GpsUtil&quot;;</b>
+<i class="no-highlight">38</i>&nbsp;    }
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    /**
+<i class="no-highlight">41</i>&nbsp;     * Return an user location as Json
+<i class="no-highlight">42</i>&nbsp;     *
+<i class="no-highlight">43</i>&nbsp;     * @return Object VistedLocation
+<i class="no-highlight">44</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">45</i>&nbsp;     * 01/12/2021
+<i class="no-highlight">46</i>&nbsp;     */
+<i class="no-highlight">47</i>&nbsp;    @GetMapping(value = &quot;/getUserLocation&quot;)
+<i class="no-highlight">48</i>&nbsp;    public VisitedLocation getUserLocation(@RequestParam UUID userId) {
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        logger.info(&quot;GET /getUserLocation with param: userId: {}&quot;, userId);</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;        return gpsUtilServices.getUserLocation(userId);</b>
+<i class="no-highlight">51</i>&nbsp;    }
+<i class="no-highlight">52</i>&nbsp;
+<i class="no-highlight">53</i>&nbsp;    /**
+<i class="no-highlight">54</i>&nbsp;     * Return all attractions registered
+<i class="no-highlight">55</i>&nbsp;     *
+<i class="no-highlight">56</i>&nbsp;     * @return List&lt;Attraction&gt;
+<i class="no-highlight">57</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">58</i>&nbsp;     * 01/12/2021
+<i class="no-highlight">59</i>&nbsp;     */
+<i class="no-highlight">60</i>&nbsp;    @GetMapping(value = &quot;/getAttractions&quot;)
+<i class="no-highlight">61</i>&nbsp;    public List&lt;Attraction&gt; getAttractions() {
+<b class="fc"><i class="no-highlight">62</i>&nbsp;        logger.info(&quot;GET /getAttractions&quot;);</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;        return gpsUtilServices.getAttractions();</b>
+<i class="no-highlight">64</i>&nbsp;    }
+<i class="no-highlight">65</i>&nbsp;
+<i class="no-highlight">66</i>&nbsp;
+<i class="no-highlight">67</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-01-02 21:29</div>
+</div>
+</body>
+</html>

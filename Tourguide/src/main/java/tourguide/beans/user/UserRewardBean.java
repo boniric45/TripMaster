@@ -1,7 +1,7 @@
 package tourguide.beans.user;
 
-import tourguide.beans.gpsutil.VisitedLocationBean;
 import tourguide.beans.gpsutil.AttractionBean;
+import tourguide.beans.gpsutil.VisitedLocationBean;
 
 public class UserRewardBean {
     public final VisitedLocationBean visitedLocation;
@@ -14,12 +14,12 @@ public class UserRewardBean {
         this.rewardPoints = rewardPoints;
     }
 
-    public void setRewardPoints(int rewardPoints) {
-        this.rewardPoints = rewardPoints;
-    }
-
     public int getRewardPoints() {
         return rewardPoints;
+    }
+
+    public void setRewardPoints(int rewardPoints) {
+        this.rewardPoints = rewardPoints;
     }
 
 }

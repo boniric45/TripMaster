@@ -28,7 +28,7 @@ public class GpsUtilServices {
     /**
      * Get an user last visited location
      *
-     * @return VisitedLocation
+     * @return Object VisitedLocation
      * @author Boniface Eric
      * 01/12/2021
      */

@@ -1,12 +1,10 @@
 package tourguide.proxies.gpsutil;
 
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import tourguide.beans.gpsutil.VisitedLocationBean;
 import tourguide.beans.gpsutil.AttractionBean;
-import tourguide.beans.user.UserBean;
+import tourguide.beans.gpsutil.VisitedLocationBean;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +16,6 @@ public interface GpsUtilProxy {
     List<AttractionBean> getAttractions();
 
     @GetMapping(value = "/getUserLocation")
-     VisitedLocationBean getUserLocation(@RequestParam UUID userId);
+    VisitedLocationBean getUserLocation(@RequestParam UUID userId);
 }
 

@@ -3,6 +3,7 @@ package tourguide.beans.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import tourguide.beans.gpsutil.LocationBean;
 import tourguide.beans.gpsutil.VisitedLocationBean;
+import tourguide.beans.reward.ProviderBean;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,10 +15,12 @@ public class UserBean {
     private final UUID userId;
     private final String userName;
     private final List<UserRewardBean> userRewards = Collections.synchronizedList(new ArrayList<>());
+    List<VisitedLocationBean> visitedLocations = new ArrayList<>();
     private LocationBean location;
     private String phoneNumber;
     private String emailAddress;
-    private List<VisitedLocationBean> visitedLocations = new ArrayList<>();
+    private UserPreferencesBean userPreferences = new UserPreferencesBean();
+    private List<ProviderBean> tripDeals = new ArrayList<>();
 
     public UserBean(UUID userId, String userName, String phoneNumber, String emailAddress) {
         this.userId = userId;
@@ -76,5 +79,25 @@ public class UserBean {
     }
 
     public void addToVisitedLocations(VisitedLocationBean visitedLocationGps) {
+        visitedLocations.add(visitedLocationGps);
+    }
+
+    public void addUserReward(UserRewardBean userReward) {
+        if (userRewards.stream().filter(r
+                -> r.attraction.attractionName.equals(userReward.attraction.attractionName)).count() == 0) {
+            userRewards.add(userReward);
+        }
+    }
+
+    public UserPreferencesBean getUserPreferences() {
+        return userPreferences;
+    }
+
+    public void setUserPreferences(UserPreferencesBean userPreferences) {
+        this.userPreferences = userPreferences;
+    }
+
+    public void setTripDeals(List<ProviderBean> tripDeals) {
+        this.tripDeals = tripDeals;
     }
 }

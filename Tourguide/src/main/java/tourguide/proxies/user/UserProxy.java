@@ -13,7 +13,10 @@ public interface UserProxy {
     @GetMapping(value = "/getUser")
     UserBean getUser(@RequestParam("userName") String userName);
 
-    @GetMapping(value = "/userAll")
+    @GetMapping(value = "/getAllUser")
     List<UserBean> userAll();
+
+    @GetMapping(value = "/getInternalUser")
+    List<UserBean> getUserAllInternalUser(@RequestParam("number") int numberUser);
 
 }

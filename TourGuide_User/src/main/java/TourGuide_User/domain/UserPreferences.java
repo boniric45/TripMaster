@@ -1,4 +1,5 @@
 package TourGuide_User.domain;
+
 import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
@@ -14,4 +15,16 @@ public class UserPreferences {
     private int ticketQuantity = 1;
     private int numberOfAdults = 1;
     private int numberOfChildren = 0;
+
+    public int getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public int getTripDuration() {
+        return tripDuration;
+    }
+
+    public int getNumberOfAdults() {
+        return getNumberOfAdults();
+    }
 }

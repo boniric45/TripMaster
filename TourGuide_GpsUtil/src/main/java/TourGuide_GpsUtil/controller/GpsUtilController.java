@@ -21,20 +21,26 @@ public class GpsUtilController {
 
     private Logger logger = LoggerFactory.getLogger(GpsUtilController.class);
 
+    public GpsUtilController(GpsUtilServices gpsUtilServices) {
+        this.gpsUtilServices = gpsUtilServices;
+    }
+
     /**
      * Return String
+     *
      * @author Boniface Eric
      * 01/12/2021
      */
     @GetMapping(value = "/")
-    public String home(){
+    public String home() {
         logger.info("GET /home");
         return "Welcome to GpsUtil";
     }
 
     /**
      * Return an user location as Json
-     * @return VistedLocation
+     *
+     * @return Object VistedLocation
      * @author Boniface Eric
      * 01/12/2021
      */
@@ -46,12 +52,13 @@ public class GpsUtilController {
 
     /**
      * Return all attractions registered
+     *
      * @return List<Attraction>
      * @author Boniface Eric
      * 01/12/2021
      */
-    @GetMapping(value="/getAttractions")
-    public List<Attraction> getAttractions(){
+    @GetMapping(value = "/getAttractions")
+    public List<Attraction> getAttractions() {
         logger.info("GET /getAttractions");
         return gpsUtilServices.getAttractions();
     }
