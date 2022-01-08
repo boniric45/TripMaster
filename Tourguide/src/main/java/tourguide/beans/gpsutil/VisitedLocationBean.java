@@ -6,8 +6,8 @@ import java.util.UUID;
 public class VisitedLocationBean {
 
     public UUID userId;
-    public  LocationBean location;
-    public  Date timeVisited;
+    public LocationBean location;
+    public Date timeVisited;
 
     public VisitedLocationBean(UUID userId, LocationBean location, Date timeVisited) {
         this.userId = userId;

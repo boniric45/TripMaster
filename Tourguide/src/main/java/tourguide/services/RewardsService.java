@@ -22,10 +22,11 @@ public class RewardsService {
     public static int attractionProximityRange = 200;
     private final GpsUtilProxy gpsUtil;
     private final RewardProxy rewardsCentral;
-    private final ExecutorService executorService = Executors.newFixedThreadPool(10000);
-    Logger logger = LoggerFactory.getLogger(RewardsService.class);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(1000);
+
     // proximity in miles
-    private int defaultProximityBuffer = 10;
+    private final int defaultProximityBuffer = 10;
+    Logger logger = LoggerFactory.getLogger(RewardsService.class);
     private int proximityBuffer = defaultProximityBuffer;
 
     // Constructor
@@ -61,6 +62,7 @@ public class RewardsService {
 
         logger.debug("Entering calculate rewards for user: " + user.getUserName());
         for (VisitedLocationBean visitedLocation : userLocations) {
+
             for (AttractionBean attraction : attractions) {
                 if (user.getUserRewards().stream().noneMatch(r -> r.attraction.attractionName.equals(attraction.attractionName))) {
                     if (nearAttraction(visitedLocation, attraction)) {

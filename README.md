@@ -10,3 +10,5 @@ To create the docker containers, enter the following commands in a terminal:
 
 5 - docker build -t tourguide_rewards .
 6 - docker  run -d -p 8083:8083 --name Tourguide_rewards tourguide_rewards
+
+For Test add JVM Option this :  -Xms256m -Xmx2048m

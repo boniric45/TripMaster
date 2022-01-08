@@ -39,7 +39,6 @@ public class TourGuideController {
         return "Greetings from TourGuide!";
     }
 
-
     // Tourguide Gpsutil
 
     /**
@@ -51,7 +50,7 @@ public class TourGuideController {
      */
     @GetMapping("/getLocation")
     public String getLocation(@RequestParam("userName") String userName) throws ExecutionException, InterruptedException {
-       UserBean user =  tourGuideServices.getUser(userName);
+        UserBean user = tourGuideServices.getUser(userName);
         VisitedLocationBean visitedLocation = tourGuideServices.getUserLocation(user);
         return JsonStream.serialize(visitedLocation.location);
     }
@@ -67,9 +66,6 @@ public class TourGuideController {
     public List<AttractionBean> getAttractions() {
         return tourGuideServices.getAttractions();
     }
-
-
-
 
     // Tourguide User
 
@@ -195,7 +191,6 @@ public class TourGuideController {
     }
 
 
-
     // Tourguide_Rewards (TripPricer)
 
     /**
@@ -239,8 +234,6 @@ public class TourGuideController {
     public List<ProviderBean> getTripDeals(@RequestParam String userName, @RequestParam int numberOfAdults, @RequestParam int numberOfChildren, @RequestParam int tripDuration) {
         return tourGuideServices.getTripDeals(userName, numberOfAdults, numberOfChildren, tripDuration);
     }
-
-
 
 
 }

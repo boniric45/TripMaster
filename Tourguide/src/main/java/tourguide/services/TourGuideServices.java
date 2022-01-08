@@ -32,59 +32,53 @@ import java.util.stream.IntStream;
 @Service
 public class TourGuideServices {
 
+    private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
+    private static final String tripPricerApiKey = "test-server-api-key";
+    private final ExecutorService executorService = Executors.newFixedThreadPool(1000);//4
+    public Tracker tracker = new Tracker(this);
+    public boolean testMode = true;
+
     @Autowired
     UserProxy userProxy;
+
     @Autowired
     GpsUtilProxy gpsUtilProxy;
+
     @Autowired
     RewardProxy rewardProxy;
+
     @Autowired
     TripPricerProxy tripPricerProxy;
 
-    private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
-    private static final String tripPricerApiKey = "test-server-api-key";
-    private final ExecutorService executorService = Executors.newFixedThreadPool(1000);//1000
-    public Tracker tracker = new Tracker(this);
-    boolean testMode = true;
+    @Autowired
+    RewardsService rewardsService;
 
-    private RewardsService rewardsService;
     private Logger logger = LoggerFactory.getLogger(TourGuideServices.class);
     private int defaultProximityBuffer = 10;
     private int proximityBuffer = defaultProximityBuffer;
     private int attractionProximityRange = 200;
 
-    // Constructor
-    public TourGuideServices(GpsUtilProxy gpsUtil, RewardProxy rewardProxy) {
-        this.gpsUtilProxy = gpsUtil;
-        this.rewardProxy = rewardProxy;
-
-        if (testMode) {
-            logger.info("TestMode enabled");
-            logger.debug("Initializing users");
-            logger.debug("Finished initializing users");
-        }
-        tracker = new Tracker(this);
-        addShutDownHook();
-    }
-
-    // Constructor
-    public TourGuideServices(GpsUtilProxy gpsUtilProxy, RewardProxy rewardProxy, UserProxy userProxy) {
-        this.gpsUtilProxy = gpsUtilProxy;
-        this.rewardProxy = rewardProxy;
-        this.userProxy = userProxy;
-
-        if (testMode) {
-            logger.info("TestMode enabled");
-            getUserAllInternalUser(50000);
-            logger.debug("Initializing users");
-            logger.debug("Finished initializing users");
-        }
-        tracker = new Tracker(this);
-        addShutDownHook();
-    }
-
     // Default Constructor
-    public TourGuideServices(){}
+    public TourGuideServices() {
+        tracker = new Tracker(this);
+        addShutDownHook();
+    }
+
+    // Contructor TestPerformance
+    public TourGuideServices(GpsUtilProxy gpsUtilProxy, RewardsService rewardsService, UserProxy userProxy) {
+        this.gpsUtilProxy = gpsUtilProxy;
+        this.rewardsService = rewardsService;
+        this.userProxy = userProxy;
+        if (testMode) {
+            logger.info("TestMode enabled");
+            logger.debug("Initializing users");
+            userProxy.getUserAllInternalUser(100000);
+            logger.debug("Finished initializing users");
+        }
+        tracker = new Tracker(this);
+        addShutDownHook();
+
+    }
 
     // Stop Tracking
     private void addShutDownHook() {
@@ -102,23 +96,21 @@ public class TourGuideServices {
      * @author Boniface Eric
      * 12/12/2021
      */
-    public VisitedLocationBean  getUserLocation(UserBean user) throws InterruptedException {
+    public VisitedLocationBean getUserLocation(UserBean user) {
         VisitedLocationBean visitedLocation = null;
         try {
-            if (user.getVisitedLocations().size()>0){
+            if (user.getVisitedLocations().size() > 0) {
+                visitedLocation = user.getLastVisitedLocation();
             } else {
-             visitedLocation =  trackUserLocation(user).get();
+                visitedLocation = trackUserLocation(user).get();
             }
 
-        }
-        catch (InterruptedException | ExecutionException e){
+        } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage());
             e.printStackTrace();
         }
         return visitedLocation;
-//        return (user.getVisitedLocations().size() > 0) ? user.getLastVisitedLocation() : trackUserLocation(user).get(); // Todo
     }
-
 
     /**
      * Get Visited Location User by Tourguide_Gpsutil
@@ -131,13 +123,14 @@ public class TourGuideServices {
     public Future<VisitedLocationBean> trackUserLocation(UserBean user) {
         logger.debug("Creating parallel task getUserLocation for user: " + user.getUserName());
         //Creating parallel task getUserLocation
-        return executorService.submit(() -> {
+        Future<VisitedLocationBean> future = executorService.submit(() -> {
             VisitedLocationBean visitedLocation = gpsUtilProxy.getUserLocation(user.getUserId());
             logger.debug("Getting userLocation: " + visitedLocation);
             user.addToVisitedLocations(visitedLocation);
-//            rewardsService.calculateRewards(user);
+            rewardsService.calculateRewards(user);
             return visitedLocation;
         });
+        return future;
     }
 
     /**
@@ -466,5 +459,7 @@ public class TourGuideServices {
     public ExecutorService getExecutorService() {
         return executorService;
     }
+
+
 }
 

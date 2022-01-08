@@ -86,7 +86,6 @@ public class UserPreferencesBean {
         this.numberOfChildren = numberOfChildren;
     }
 
-
     public void setHighPricePoint(BigDecimal valueOf, String eur) {
     }
 

@@ -3,9 +3,7 @@ package tourguide.tracker;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import tourguide.beans.user.UserBean;
-import tourguide.proxies.user.UserProxy;
 import tourguide.services.TourGuideServices;
 
 import java.util.List;
@@ -17,9 +15,6 @@ public class Tracker extends Thread {
     private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(5);
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final TourGuideServices tourGuideServices;
-
-    @Autowired
-    UserProxy userService;
 
     private Logger logger = LoggerFactory.getLogger(Tracker.class);
     private boolean stop = false;

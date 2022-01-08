@@ -14,8 +14,8 @@ public class UserBean {
 
     private final UUID userId;
     private final String userName;
-    private final List<UserRewardBean> userRewards = Collections.synchronizedList(new ArrayList<>());
     List<VisitedLocationBean> visitedLocations = new ArrayList<>();
+    private List<UserRewardBean> userRewards = Collections.synchronizedList(new ArrayList<>());
     private LocationBean location;
     private String phoneNumber;
     private String emailAddress;

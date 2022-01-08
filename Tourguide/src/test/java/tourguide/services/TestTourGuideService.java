@@ -40,7 +40,7 @@ public class TestTourGuideService {
     public void getUserLocationTest() throws ExecutionException, InterruptedException {
 
         // Given
-        tourGuideServices.userProxy.getUserAllInternalUser(5);
+        tourGuideServices.getUserAllInternalUser(5);
         UserBean userBean = new UserBean(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 
         // When
@@ -55,7 +55,6 @@ public class TestTourGuideService {
     public void getTrackUserLocationTest() throws ExecutionException, InterruptedException {
 
         // Given
-        TourGuideServices tourGuideServices = new TourGuideServices(gpsUtil, rewardCentral, userProxy);
         UserBean userBean = new UserBean(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 
         // When
@@ -109,15 +108,14 @@ public class TestTourGuideService {
 
     @Test
     public void getClosestAttractions_shouldReturn5ClosestAttractionSortedByProximityTest() throws InterruptedException, ExecutionException {
-        tourGuideServices.getUserAllInternalUser(10);
-        TourGuideServices tourGuideService = new TourGuideServices(gpsUtil, rewardCentral);
 
         UserBean user = new UserBean(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-        VisitedLocationBean userLocation = tourGuideService.trackUserLocation(user).get();
 
-        Map<Double, AttractionBean> attractions = tourGuideService.getClosestAttractions(userLocation, 5);
+        VisitedLocationBean userLocation = tourGuideServices.trackUserLocation(user).get();
 
-        tourGuideService.tracker.stopTracking();
+        Map<Double, AttractionBean> attractions = tourGuideServices.getClosestAttractions(userLocation, 5);
+
+        tourGuideServices.tracker.stopTracking();
 
         // List assert
         assertEquals(5, attractions.size());
