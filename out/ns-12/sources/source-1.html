@@ -114,211 +114,204 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc"><i class="no-highlight">39</i>&nbsp;        return &quot;Greetings from TourGuide!&quot;;</b>
 <i class="no-highlight">40</i>&nbsp;    }
 <i class="no-highlight">41</i>&nbsp;
-<i class="no-highlight">42</i>&nbsp;
-<i class="no-highlight">43</i>&nbsp;    // Tourguide Gpsutil
-<i class="no-highlight">44</i>&nbsp;
-<i class="no-highlight">45</i>&nbsp;    /**
-<i class="no-highlight">46</i>&nbsp;     * Get Location User by Tourguide_Gpsutil
-<i class="no-highlight">47</i>&nbsp;     *
-<i class="no-highlight">48</i>&nbsp;     * @return Location visited
-<i class="no-highlight">49</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">50</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">51</i>&nbsp;     */
-<i class="no-highlight">52</i>&nbsp;    @GetMapping(&quot;/getLocation&quot;)
-<i class="no-highlight">53</i>&nbsp;    public String getLocation(@RequestParam(&quot;userName&quot;) String userName) throws ExecutionException, InterruptedException {
-<b class="fc"><i class="no-highlight">54</i>&nbsp;       UserBean user =  tourGuideServices.getUser(userName);</b>
-<b class="fc"><i class="no-highlight">55</i>&nbsp;        VisitedLocationBean visitedLocation = tourGuideServices.getUserLocation(user);</b>
-<b class="fc"><i class="no-highlight">56</i>&nbsp;        return JsonStream.serialize(visitedLocation.location);</b>
-<i class="no-highlight">57</i>&nbsp;    }
-<i class="no-highlight">58</i>&nbsp;
-<i class="no-highlight">59</i>&nbsp;    /**
-<i class="no-highlight">60</i>&nbsp;     * Get list of attraction by Tourguide_Gpsutil
-<i class="no-highlight">61</i>&nbsp;     *
-<i class="no-highlight">62</i>&nbsp;     * @return List of attraction
-<i class="no-highlight">63</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">64</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">65</i>&nbsp;     */
-<i class="no-highlight">66</i>&nbsp;    @GetMapping(value = &quot;/getAttractions&quot;)
-<i class="no-highlight">67</i>&nbsp;    public List&lt;AttractionBean&gt; getAttractions() {
-<b class="fc"><i class="no-highlight">68</i>&nbsp;        return tourGuideServices.getAttractions();</b>
-<i class="no-highlight">69</i>&nbsp;    }
-<i class="no-highlight">70</i>&nbsp;
+<i class="no-highlight">42</i>&nbsp;    // Tourguide Gpsutil
+<i class="no-highlight">43</i>&nbsp;
+<i class="no-highlight">44</i>&nbsp;    /**
+<i class="no-highlight">45</i>&nbsp;     * Get Location User by Tourguide_Gpsutil
+<i class="no-highlight">46</i>&nbsp;     *
+<i class="no-highlight">47</i>&nbsp;     * @return Location visited
+<i class="no-highlight">48</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">49</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">50</i>&nbsp;     */
+<i class="no-highlight">51</i>&nbsp;    @GetMapping(&quot;/getLocation&quot;)
+<i class="no-highlight">52</i>&nbsp;    public String getLocation(@RequestParam(&quot;userName&quot;) String userName) {
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        UserBean user = tourGuideServices.getUser(userName);</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;        VisitedLocationBean visitedLocation = tourGuideServices.getUserLocation(user);</b>
+<b class="fc"><i class="no-highlight">55</i>&nbsp;        return JsonStream.serialize(visitedLocation.location);</b>
+<i class="no-highlight">56</i>&nbsp;    }
+<i class="no-highlight">57</i>&nbsp;
+<i class="no-highlight">58</i>&nbsp;    /**
+<i class="no-highlight">59</i>&nbsp;     * Get list of attraction by Tourguide_Gpsutil
+<i class="no-highlight">60</i>&nbsp;     *
+<i class="no-highlight">61</i>&nbsp;     * @return List of attraction
+<i class="no-highlight">62</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">63</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">64</i>&nbsp;     */
+<i class="no-highlight">65</i>&nbsp;    @GetMapping(value = &quot;/getAttractions&quot;)
+<i class="no-highlight">66</i>&nbsp;    public List&lt;AttractionBean&gt; getAttractions() {
+<b class="fc"><i class="no-highlight">67</i>&nbsp;        return tourGuideServices.getAttractions();</b>
+<i class="no-highlight">68</i>&nbsp;    }
+<i class="no-highlight">69</i>&nbsp;
+<i class="no-highlight">70</i>&nbsp;    // Tourguide User
 <i class="no-highlight">71</i>&nbsp;
-<i class="no-highlight">72</i>&nbsp;
-<i class="no-highlight">73</i>&nbsp;
-<i class="no-highlight">74</i>&nbsp;    // Tourguide User
-<i class="no-highlight">75</i>&nbsp;
-<i class="no-highlight">76</i>&nbsp;    /**
-<i class="no-highlight">77</i>&nbsp;     * Get  User by Tourguide_User
-<i class="no-highlight">78</i>&nbsp;     *
-<i class="no-highlight">79</i>&nbsp;     * @return User
-<i class="no-highlight">80</i>&nbsp;     * @Param userName
-<i class="no-highlight">81</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">82</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">83</i>&nbsp;     */
-<i class="no-highlight">84</i>&nbsp;    @GetMapping(value = &quot;/getUser&quot;)
-<i class="no-highlight">85</i>&nbsp;    public UserBean getUser(@RequestParam(&quot;userName&quot;) String userName) {
-<b class="fc"><i class="no-highlight">86</i>&nbsp;        return tourGuideServices.getUser(userName);</b>
-<i class="no-highlight">87</i>&nbsp;    }
-<i class="no-highlight">88</i>&nbsp;
-<i class="no-highlight">89</i>&nbsp;    /**
-<i class="no-highlight">90</i>&nbsp;     * Get  List All User by Tourguide_User
-<i class="no-highlight">91</i>&nbsp;     *
-<i class="no-highlight">92</i>&nbsp;     * @return List of User générated
-<i class="no-highlight">93</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">94</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">95</i>&nbsp;     */
-<i class="no-highlight">96</i>&nbsp;    @GetMapping(value = &quot;/getAllUser&quot;)
-<i class="no-highlight">97</i>&nbsp;    public List&lt;UserBean&gt; getUserAll() {
-<b class="fc"><i class="no-highlight">98</i>&nbsp;        return tourGuideServices.getAllUser();</b>
-<i class="no-highlight">99</i>&nbsp;    }
-<i class="no-highlight">100</i>&nbsp;
-<i class="no-highlight">101</i>&nbsp;    /**
-<i class="no-highlight">102</i>&nbsp;     * Get  User Generated by Tourguide_User
-<i class="no-highlight">103</i>&nbsp;     *
-<i class="no-highlight">104</i>&nbsp;     * @return List User Generated
-<i class="no-highlight">105</i>&nbsp;     * @Param numberUser
-<i class="no-highlight">106</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">107</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">108</i>&nbsp;     */
-<i class="no-highlight">109</i>&nbsp;    @GetMapping(value = &quot;/getInternalUser&quot;)
-<i class="no-highlight">110</i>&nbsp;    public List&lt;UserBean&gt; getUserAllInternalUser(@RequestParam(&quot;number&quot;) int numberUser) {
-<b class="nc"><i class="no-highlight">111</i>&nbsp;        return tourGuideServices.getUserAllInternalUser(numberUser);</b>
-<i class="no-highlight">112</i>&nbsp;    }
-<i class="no-highlight">113</i>&nbsp;
-<i class="no-highlight">114</i>&nbsp;    /**
-<i class="no-highlight">115</i>&nbsp;     * Get  All User Current Location
-<i class="no-highlight">116</i>&nbsp;     *
-<i class="no-highlight">117</i>&nbsp;     * @return List&lt;UserLastLocationDto&gt;
-<i class="no-highlight">118</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">119</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">120</i>&nbsp;     */
-<i class="no-highlight">121</i>&nbsp;    @GetMapping(&quot;/getAllCurrentLocations&quot;)
-<i class="no-highlight">122</i>&nbsp;    public String getAllCurrentLocations() throws ExecutionException, InterruptedException {
-<b class="fc"><i class="no-highlight">123</i>&nbsp;        return JsonStream.serialize(tourGuideServices.getAllUserLastVisitedLocation());</b>
-<i class="no-highlight">124</i>&nbsp;    }
-<i class="no-highlight">125</i>&nbsp;
-<i class="no-highlight">126</i>&nbsp;    /**
-<i class="no-highlight">127</i>&nbsp;     * Get  History User Location
-<i class="no-highlight">128</i>&nbsp;     *
-<i class="no-highlight">129</i>&nbsp;     * @return List&lt;VisitedLocationBean&gt;
-<i class="no-highlight">130</i>&nbsp;     * @Param userName and numberLocation
-<i class="no-highlight">131</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">132</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">133</i>&nbsp;     */
-<i class="no-highlight">134</i>&nbsp;    @GetMapping(&quot;/getHistoryUserLocation&quot;)
-<i class="no-highlight">135</i>&nbsp;    public List&lt;VisitedLocationBean&gt; getUserHistory(@RequestParam(&quot;userName&quot;) String userName, @RequestParam(&quot;number&quot;) int numberLocation) {
-<b class="nc"><i class="no-highlight">136</i>&nbsp;        UserBean userBean = getUser(userName);</b>
-<b class="nc"><i class="no-highlight">137</i>&nbsp;        return tourGuideServices.generateUserLocationHistory(userBean, numberLocation);</b>
-<i class="no-highlight">138</i>&nbsp;    }
-<i class="no-highlight">139</i>&nbsp;
-<i class="no-highlight">140</i>&nbsp;    /**
-<i class="no-highlight">141</i>&nbsp;     * Get  Full History User
-<i class="no-highlight">142</i>&nbsp;     *
-<i class="no-highlight">143</i>&nbsp;     * @return List&lt;VisitedLocationBean&gt;
-<i class="no-highlight">144</i>&nbsp;     * @Param userName and numberLocation
-<i class="no-highlight">145</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">146</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">147</i>&nbsp;     */
-<i class="no-highlight">148</i>&nbsp;    @GetMapping(&quot;/getUserFullHistory&quot;)
-<i class="no-highlight">149</i>&nbsp;    public String getUserFull(@RequestParam(&quot;userName&quot;) String userName, @RequestParam(&quot;number&quot;) int numberLocation) {
-<b class="nc"><i class="no-highlight">150</i>&nbsp;        UserBean userBean = getUser(userName);</b>
-<b class="nc"><i class="no-highlight">151</i>&nbsp;        List&lt;VisitedLocationBean&gt; visitedLocationBeanList = tourGuideServices.generateUserLocationHistory(userBean, numberLocation);</b>
-<b class="nc"><i class="no-highlight">152</i>&nbsp;        List&lt;String&gt; result = new ArrayList&lt;&gt;();</b>
-<b class="nc"><i class="no-highlight">153</i>&nbsp;        result.add(userBean.getUserName() + &quot;, &quot; + userBean.getEmailAddress() + &quot;, &quot; + visitedLocationBeanList + &quot;, &quot;);</b>
-<b class="nc"><i class="no-highlight">154</i>&nbsp;        return JsonStream.serialize(result);</b>
-<i class="no-highlight">155</i>&nbsp;    }
-<i class="no-highlight">156</i>&nbsp;
-<i class="no-highlight">157</i>&nbsp;    /**
-<i class="no-highlight">158</i>&nbsp;     * Get  Rewards by userName
-<i class="no-highlight">159</i>&nbsp;     *
-<i class="no-highlight">160</i>&nbsp;     * @return List&lt;UserRewardBean&gt;
-<i class="no-highlight">161</i>&nbsp;     * @Param userName
-<i class="no-highlight">162</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">163</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">164</i>&nbsp;     */
-<i class="no-highlight">165</i>&nbsp;    @GetMapping(value = &quot;/getRewards&quot;)
-<i class="no-highlight">166</i>&nbsp;    public String getRewards(@RequestParam String userName) {
-<b class="nc"><i class="no-highlight">167</i>&nbsp;        return JsonStream.serialize(tourGuideServices.getUserRewards(getUser(userName)));</b>
-<i class="no-highlight">168</i>&nbsp;    }
-<i class="no-highlight">169</i>&nbsp;
-<i class="no-highlight">170</i>&nbsp;    /**
-<i class="no-highlight">171</i>&nbsp;     * Get  Near by Attraction by userName
-<i class="no-highlight">172</i>&nbsp;     *
-<i class="no-highlight">173</i>&nbsp;     * @return List&lt;AttractionsDto&gt;
-<i class="no-highlight">174</i>&nbsp;     * @Param userName
-<i class="no-highlight">175</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">176</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">177</i>&nbsp;     */
-<i class="no-highlight">178</i>&nbsp;    @GetMapping(&quot;/getNearbyAttractions&quot;)
-<i class="no-highlight">179</i>&nbsp;    public String getNearbyAttractions(@RequestParam String userName) {
-<b class="nc"><i class="no-highlight">180</i>&nbsp;        UserBean userBean = getUser(userName);</b>
-<b class="nc"><i class="no-highlight">181</i>&nbsp;        return JsonStream.serialize(tourGuideServices.mapClosestFiveTouristAttractionsToTheUser(userBean, 5));</b>
-<i class="no-highlight">182</i>&nbsp;    }
-<i class="no-highlight">183</i>&nbsp;
-<i class="no-highlight">184</i>&nbsp;    /**
-<i class="no-highlight">185</i>&nbsp;     * Get  Attraction Rewards Points
-<i class="no-highlight">186</i>&nbsp;     *
-<i class="no-highlight">187</i>&nbsp;     * @return int (Number Points)
-<i class="no-highlight">188</i>&nbsp;     * @Param attractionId and userId
-<i class="no-highlight">189</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">190</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">191</i>&nbsp;     */
-<i class="no-highlight">192</i>&nbsp;    @GetMapping(&quot;/getAttractionRewardPoints&quot;)
-<i class="no-highlight">193</i>&nbsp;    public String getAttractionRewardPoints(@RequestParam UUID attractionId, @RequestParam UUID userId) {
-<b class="fc"><i class="no-highlight">194</i>&nbsp;        return new Gson().toJson(tourGuideServices.getAttractionRewardPoints(attractionId, userId));</b>
-<i class="no-highlight">195</i>&nbsp;    }
-<i class="no-highlight">196</i>&nbsp;
-<i class="no-highlight">197</i>&nbsp;
-<i class="no-highlight">198</i>&nbsp;
-<i class="no-highlight">199</i>&nbsp;    // Tourguide_Rewards (TripPricer)
-<i class="no-highlight">200</i>&nbsp;
-<i class="no-highlight">201</i>&nbsp;    /**
-<i class="no-highlight">202</i>&nbsp;     * Get  Provider Name
-<i class="no-highlight">203</i>&nbsp;     *
-<i class="no-highlight">204</i>&nbsp;     * @return String
-<i class="no-highlight">205</i>&nbsp;     * @Param apiKey and adults
-<i class="no-highlight">206</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">207</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">208</i>&nbsp;     */
-<i class="no-highlight">209</i>&nbsp;    @GetMapping(&quot;/getProviderName&quot;)
-<i class="no-highlight">210</i>&nbsp;    public String getProviderName(@RequestParam String apiKey, @RequestParam int adults) {
-<b class="fc"><i class="no-highlight">211</i>&nbsp;        return tourGuideServices.getProviderName(apiKey, adults);</b>
-<i class="no-highlight">212</i>&nbsp;    }
-<i class="no-highlight">213</i>&nbsp;
-<i class="no-highlight">214</i>&nbsp;    /**
-<i class="no-highlight">215</i>&nbsp;     * Get  Price
-<i class="no-highlight">216</i>&nbsp;     *
-<i class="no-highlight">217</i>&nbsp;     * @return List&lt;ProviderBean&gt;
-<i class="no-highlight">218</i>&nbsp;     * @Param apiKey, attractionId, adults, children, nightsStay, rewardsPoints
-<i class="no-highlight">219</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">220</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">221</i>&nbsp;     */
-<i class="no-highlight">222</i>&nbsp;    @GetMapping(&quot;/getPrice&quot;)
-<i class="no-highlight">223</i>&nbsp;    public List&lt;ProviderBean&gt; getPrice(@RequestParam String apiKey, @RequestParam UUID attractionId,
-<i class="no-highlight">224</i>&nbsp;                                       @RequestParam int adults, @RequestParam int children,
-<i class="no-highlight">225</i>&nbsp;                                       @RequestParam int nightsStay, @RequestParam int rewardsPoints) {
-<i class="no-highlight">226</i>&nbsp;
-<b class="fc"><i class="no-highlight">227</i>&nbsp;        return tourGuideServices.getPrice(apiKey, attractionId, adults, children, nightsStay, rewardsPoints);</b>
-<i class="no-highlight">228</i>&nbsp;    }
-<i class="no-highlight">229</i>&nbsp;
-<i class="no-highlight">230</i>&nbsp;    /**
-<i class="no-highlight">231</i>&nbsp;     * Get Trip Deals
-<i class="no-highlight">232</i>&nbsp;     *
-<i class="no-highlight">233</i>&nbsp;     * @return List&lt;ProviderBean&gt;
-<i class="no-highlight">234</i>&nbsp;     * @Param apiKey, attractionId, adults, children, nightsStay, rewardsPoints
-<i class="no-highlight">235</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">236</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">237</i>&nbsp;     */
-<i class="no-highlight">238</i>&nbsp;    @GetMapping(&quot;/getTripDeals&quot;)
-<i class="no-highlight">239</i>&nbsp;    public List&lt;ProviderBean&gt; getTripDeals(@RequestParam String userName, @RequestParam int numberOfAdults, @RequestParam int numberOfChildren, @RequestParam int tripDuration) {
-<b class="nc"><i class="no-highlight">240</i>&nbsp;        return tourGuideServices.getTripDeals(userName, numberOfAdults, numberOfChildren, tripDuration);</b>
-<i class="no-highlight">241</i>&nbsp;    }
-<i class="no-highlight">242</i>&nbsp;
-<i class="no-highlight">243</i>&nbsp;
-<i class="no-highlight">244</i>&nbsp;
-<i class="no-highlight">245</i>&nbsp;
-<i class="no-highlight">246</i>&nbsp;}
+<i class="no-highlight">72</i>&nbsp;    /**
+<i class="no-highlight">73</i>&nbsp;     * Get  User by Tourguide_User
+<i class="no-highlight">74</i>&nbsp;     *
+<i class="no-highlight">75</i>&nbsp;     * @return User
+<i class="no-highlight">76</i>&nbsp;     * @Param userName
+<i class="no-highlight">77</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">78</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">79</i>&nbsp;     */
+<i class="no-highlight">80</i>&nbsp;    @GetMapping(value = &quot;/getUser&quot;)
+<i class="no-highlight">81</i>&nbsp;    public UserBean getUser(@RequestParam(&quot;userName&quot;) String userName) {
+<b class="fc"><i class="no-highlight">82</i>&nbsp;        return tourGuideServices.getUser(userName);</b>
+<i class="no-highlight">83</i>&nbsp;    }
+<i class="no-highlight">84</i>&nbsp;
+<i class="no-highlight">85</i>&nbsp;    /**
+<i class="no-highlight">86</i>&nbsp;     * Get  List All User by Tourguide_User
+<i class="no-highlight">87</i>&nbsp;     *
+<i class="no-highlight">88</i>&nbsp;     * @return List of User générated
+<i class="no-highlight">89</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">90</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">91</i>&nbsp;     */
+<i class="no-highlight">92</i>&nbsp;    @GetMapping(value = &quot;/getAllUser&quot;)
+<i class="no-highlight">93</i>&nbsp;    public List&lt;UserBean&gt; getUserAll() {
+<b class="fc"><i class="no-highlight">94</i>&nbsp;        return tourGuideServices.getAllUser();</b>
+<i class="no-highlight">95</i>&nbsp;    }
+<i class="no-highlight">96</i>&nbsp;
+<i class="no-highlight">97</i>&nbsp;    /**
+<i class="no-highlight">98</i>&nbsp;     * Get  User Generated by Tourguide_User
+<i class="no-highlight">99</i>&nbsp;     *
+<i class="no-highlight">100</i>&nbsp;     * @return List User Generated
+<i class="no-highlight">101</i>&nbsp;     * @Param numberUser
+<i class="no-highlight">102</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">103</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">104</i>&nbsp;     */
+<i class="no-highlight">105</i>&nbsp;    @GetMapping(value = &quot;/getInternalUser&quot;)
+<i class="no-highlight">106</i>&nbsp;    public List&lt;UserBean&gt; getUserAllInternalUser(@RequestParam(&quot;number&quot;) int numberUser) {
+<b class="nc"><i class="no-highlight">107</i>&nbsp;        return tourGuideServices.getUserAllInternalUser(numberUser);</b>
+<i class="no-highlight">108</i>&nbsp;    }
+<i class="no-highlight">109</i>&nbsp;
+<i class="no-highlight">110</i>&nbsp;    /**
+<i class="no-highlight">111</i>&nbsp;     * Get  All User Current Location
+<i class="no-highlight">112</i>&nbsp;     *
+<i class="no-highlight">113</i>&nbsp;     * @return List&lt;UserLastLocationDto&gt;
+<i class="no-highlight">114</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">115</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">116</i>&nbsp;     */
+<i class="no-highlight">117</i>&nbsp;    @GetMapping(&quot;/getAllCurrentLocations&quot;)
+<i class="no-highlight">118</i>&nbsp;    public String getAllCurrentLocations() throws ExecutionException, InterruptedException {
+<b class="fc"><i class="no-highlight">119</i>&nbsp;        return JsonStream.serialize(tourGuideServices.getAllUserLastVisitedLocation());</b>
+<i class="no-highlight">120</i>&nbsp;    }
+<i class="no-highlight">121</i>&nbsp;
+<i class="no-highlight">122</i>&nbsp;    /**
+<i class="no-highlight">123</i>&nbsp;     * Get  History User Location
+<i class="no-highlight">124</i>&nbsp;     *
+<i class="no-highlight">125</i>&nbsp;     * @return List&lt;VisitedLocationBean&gt;
+<i class="no-highlight">126</i>&nbsp;     * @Param userName and numberLocation
+<i class="no-highlight">127</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">128</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">129</i>&nbsp;     */
+<i class="no-highlight">130</i>&nbsp;    @GetMapping(&quot;/getHistoryUserLocation&quot;)
+<i class="no-highlight">131</i>&nbsp;    public List&lt;VisitedLocationBean&gt; getUserHistory(@RequestParam(&quot;userName&quot;) String userName, @RequestParam(&quot;number&quot;) int numberLocation) {
+<b class="nc"><i class="no-highlight">132</i>&nbsp;        UserBean userBean = getUser(userName);</b>
+<b class="nc"><i class="no-highlight">133</i>&nbsp;        return tourGuideServices.generateUserLocationHistory(userBean, numberLocation);</b>
+<i class="no-highlight">134</i>&nbsp;    }
+<i class="no-highlight">135</i>&nbsp;
+<i class="no-highlight">136</i>&nbsp;    /**
+<i class="no-highlight">137</i>&nbsp;     * Get  Full History User
+<i class="no-highlight">138</i>&nbsp;     *
+<i class="no-highlight">139</i>&nbsp;     * @return List&lt;VisitedLocationBean&gt;
+<i class="no-highlight">140</i>&nbsp;     * @Param userName and numberLocation
+<i class="no-highlight">141</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">142</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">143</i>&nbsp;     */
+<i class="no-highlight">144</i>&nbsp;    @GetMapping(&quot;/getUserFullHistory&quot;)
+<i class="no-highlight">145</i>&nbsp;    public String getUserFull(@RequestParam(&quot;userName&quot;) String userName, @RequestParam(&quot;number&quot;) int numberLocation) {
+<b class="nc"><i class="no-highlight">146</i>&nbsp;        UserBean userBean = getUser(userName);</b>
+<b class="nc"><i class="no-highlight">147</i>&nbsp;        List&lt;VisitedLocationBean&gt; visitedLocationBeanList = tourGuideServices.generateUserLocationHistory(userBean, numberLocation);</b>
+<b class="nc"><i class="no-highlight">148</i>&nbsp;        List&lt;String&gt; result = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">149</i>&nbsp;        result.add(userBean.getUserName() + &quot;, &quot; + userBean.getEmailAddress() + &quot;, &quot; + visitedLocationBeanList + &quot;, &quot;);</b>
+<b class="nc"><i class="no-highlight">150</i>&nbsp;        return JsonStream.serialize(result);</b>
+<i class="no-highlight">151</i>&nbsp;    }
+<i class="no-highlight">152</i>&nbsp;
+<i class="no-highlight">153</i>&nbsp;    /**
+<i class="no-highlight">154</i>&nbsp;     * Get  Rewards by userName
+<i class="no-highlight">155</i>&nbsp;     *
+<i class="no-highlight">156</i>&nbsp;     * @return List&lt;UserRewardBean&gt;
+<i class="no-highlight">157</i>&nbsp;     * @Param userName
+<i class="no-highlight">158</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">159</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">160</i>&nbsp;     */
+<i class="no-highlight">161</i>&nbsp;    @GetMapping(value = &quot;/getRewards&quot;)
+<i class="no-highlight">162</i>&nbsp;    public String getRewards(@RequestParam String userName) {
+<b class="nc"><i class="no-highlight">163</i>&nbsp;        return JsonStream.serialize(tourGuideServices.getUserRewards(getUser(userName)));</b>
+<i class="no-highlight">164</i>&nbsp;    }
+<i class="no-highlight">165</i>&nbsp;
+<i class="no-highlight">166</i>&nbsp;    /**
+<i class="no-highlight">167</i>&nbsp;     * Get  Near by Attraction by userName
+<i class="no-highlight">168</i>&nbsp;     *
+<i class="no-highlight">169</i>&nbsp;     * @return List&lt;AttractionsDto&gt;
+<i class="no-highlight">170</i>&nbsp;     * @Param userName
+<i class="no-highlight">171</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">172</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">173</i>&nbsp;     */
+<i class="no-highlight">174</i>&nbsp;    @GetMapping(&quot;/getNearbyAttractions&quot;)
+<i class="no-highlight">175</i>&nbsp;    public String getNearbyAttractions(@RequestParam String userName) {
+<b class="nc"><i class="no-highlight">176</i>&nbsp;        UserBean userBean = getUser(userName);</b>
+<b class="nc"><i class="no-highlight">177</i>&nbsp;        return JsonStream.serialize(tourGuideServices.mapClosestFiveTouristAttractionsToTheUser(userBean, 5));</b>
+<i class="no-highlight">178</i>&nbsp;    }
+<i class="no-highlight">179</i>&nbsp;
+<i class="no-highlight">180</i>&nbsp;    /**
+<i class="no-highlight">181</i>&nbsp;     * Get  Attraction Rewards Points
+<i class="no-highlight">182</i>&nbsp;     *
+<i class="no-highlight">183</i>&nbsp;     * @return int (Number Points)
+<i class="no-highlight">184</i>&nbsp;     * @Param attractionId and userId
+<i class="no-highlight">185</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">186</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">187</i>&nbsp;     */
+<i class="no-highlight">188</i>&nbsp;    @GetMapping(&quot;/getAttractionRewardPoints&quot;)
+<i class="no-highlight">189</i>&nbsp;    public String getAttractionRewardPoints(@RequestParam UUID attractionId, @RequestParam UUID userId) {
+<b class="fc"><i class="no-highlight">190</i>&nbsp;        return new Gson().toJson(tourGuideServices.getAttractionRewardPoints(attractionId, userId));</b>
+<i class="no-highlight">191</i>&nbsp;    }
+<i class="no-highlight">192</i>&nbsp;
+<i class="no-highlight">193</i>&nbsp;
+<i class="no-highlight">194</i>&nbsp;    // Tourguide_Rewards (TripPricer)
+<i class="no-highlight">195</i>&nbsp;
+<i class="no-highlight">196</i>&nbsp;    /**
+<i class="no-highlight">197</i>&nbsp;     * Get  Provider Name
+<i class="no-highlight">198</i>&nbsp;     *
+<i class="no-highlight">199</i>&nbsp;     * @return String
+<i class="no-highlight">200</i>&nbsp;     * @Param apiKey and adults
+<i class="no-highlight">201</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">202</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">203</i>&nbsp;     */
+<i class="no-highlight">204</i>&nbsp;    @GetMapping(&quot;/getProviderName&quot;)
+<i class="no-highlight">205</i>&nbsp;    public String getProviderName(@RequestParam String apiKey, @RequestParam int adults) {
+<b class="fc"><i class="no-highlight">206</i>&nbsp;        return tourGuideServices.getProviderName(apiKey, adults);</b>
+<i class="no-highlight">207</i>&nbsp;    }
+<i class="no-highlight">208</i>&nbsp;
+<i class="no-highlight">209</i>&nbsp;    /**
+<i class="no-highlight">210</i>&nbsp;     * Get  Price
+<i class="no-highlight">211</i>&nbsp;     *
+<i class="no-highlight">212</i>&nbsp;     * @return List&lt;ProviderBean&gt;
+<i class="no-highlight">213</i>&nbsp;     * @Param apiKey, attractionId, adults, children, nightsStay, rewardsPoints
+<i class="no-highlight">214</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">215</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">216</i>&nbsp;     */
+<i class="no-highlight">217</i>&nbsp;    @GetMapping(&quot;/getPrice&quot;)
+<i class="no-highlight">218</i>&nbsp;    public List&lt;ProviderBean&gt; getPrice(@RequestParam String apiKey, @RequestParam UUID attractionId,
+<i class="no-highlight">219</i>&nbsp;                                       @RequestParam int adults, @RequestParam int children,
+<i class="no-highlight">220</i>&nbsp;                                       @RequestParam int nightsStay, @RequestParam int rewardsPoints) {
+<i class="no-highlight">221</i>&nbsp;
+<b class="fc"><i class="no-highlight">222</i>&nbsp;        return tourGuideServices.getPrice(apiKey, attractionId, adults, children, nightsStay, rewardsPoints);</b>
+<i class="no-highlight">223</i>&nbsp;    }
+<i class="no-highlight">224</i>&nbsp;
+<i class="no-highlight">225</i>&nbsp;    /**
+<i class="no-highlight">226</i>&nbsp;     * Get Trip Deals
+<i class="no-highlight">227</i>&nbsp;     *
+<i class="no-highlight">228</i>&nbsp;     * @return List&lt;ProviderBean&gt;
+<i class="no-highlight">229</i>&nbsp;     * @Param apiKey, attractionId, adults, children, nightsStay, rewardsPoints
+<i class="no-highlight">230</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">231</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">232</i>&nbsp;     */
+<i class="no-highlight">233</i>&nbsp;    @GetMapping(&quot;/getTripDeals&quot;)
+<i class="no-highlight">234</i>&nbsp;    public List&lt;ProviderBean&gt; getTripDeals(@RequestParam String userName, @RequestParam int numberOfAdults, @RequestParam int numberOfChildren, @RequestParam int tripDuration) {
+<b class="nc"><i class="no-highlight">235</i>&nbsp;        return tourGuideServices.getTripDeals(userName, numberOfAdults, numberOfChildren, tripDuration);</b>
+<i class="no-highlight">236</i>&nbsp;    }
+<i class="no-highlight">237</i>&nbsp;
+<i class="no-highlight">238</i>&nbsp;
+<i class="no-highlight">239</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -345,7 +338,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-01-02 21:29</div>
+    <div style="float:right;">generated on 2022-01-08 11:52</div>
 </div>
 </body>
 </html>

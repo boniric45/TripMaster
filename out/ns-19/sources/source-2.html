@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RewardProxy</title>
+  <title>Coverage Report > TripPricerProxy</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -20,14 +20,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">tourguide.proxies.reward</a>
 </div>
 
-<h1>Coverage Summary for Class: RewardProxy (tourguide.proxies.reward)</h1>
+<h1>Coverage Summary for Class: TripPricerProxy (tourguide.proxies.reward)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">RewardProxy</td>
+  <td class="name">TripPricerProxy</td>
 </tr>
 
 </table>
@@ -40,19 +40,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 <div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package tourguide.proxies.reward;
 <i class="no-highlight">2</i>&nbsp;
 <i class="no-highlight">3</i>&nbsp;import org.springframework.cloud.openfeign.FeignClient;
-<i class="no-highlight">4</i>&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
 <i class="no-highlight">5</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
-<i class="no-highlight">6</i>&nbsp;
-<i class="no-highlight">7</i>&nbsp;import java.util.UUID;
-<i class="no-highlight">8</i>&nbsp;
-<i class="no-highlight">9</i>&nbsp;@FeignClient(name = &quot;reward&quot;, url = &quot;localhost:8083&quot;)
-<i class="no-highlight">10</i>&nbsp;public interface RewardProxy {
-<i class="no-highlight">11</i>&nbsp;
-<i class="no-highlight">12</i>&nbsp;    // consumes and produces for decoder response
-<i class="no-highlight">13</i>&nbsp;    @GetMapping(value = &quot;/getAttractionRewardPoints&quot;, consumes = &quot;application/json&quot;, produces = &quot;application/json&quot;)
-<i class="no-highlight">14</i>&nbsp;    int getAttractionRewardPoints(@RequestParam UUID attractionId, @RequestParam UUID userId);
-<i class="no-highlight">15</i>&nbsp;
-<i class="no-highlight">16</i>&nbsp;}
+<i class="no-highlight">6</i>&nbsp;import tourguide.beans.reward.ProviderBean;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;import java.util.List;
+<i class="no-highlight">9</i>&nbsp;import java.util.UUID;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;@FeignClient(name = &quot;tripPricer&quot;, url = &quot;localhost:8083&quot;)
+<i class="no-highlight">12</i>&nbsp;public interface TripPricerProxy {
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;    @RequestMapping(&quot;/getProviderName&quot;)
+<i class="no-highlight">15</i>&nbsp;    String getProviderName(@RequestParam String apiKey, @RequestParam int adults);
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    @RequestMapping(&quot;/getPrice&quot;)
+<i class="no-highlight">18</i>&nbsp;List&lt;ProviderBean&gt; getPrice(@RequestParam String apiKey, @RequestParam UUID attractionId,
+<i class="no-highlight">19</i>&nbsp;                                @RequestParam int adults, @RequestParam int children,
+<i class="no-highlight">20</i>&nbsp;                                @RequestParam int nightsStay, @RequestParam int rewardsPoints);
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -79,7 +85,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-01-02 21:29</div>
+    <div style="float:right;">generated on 2022-01-08 11:52</div>
 </div>
 </body>
 </html>

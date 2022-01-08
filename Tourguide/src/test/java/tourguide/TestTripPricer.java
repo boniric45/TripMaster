@@ -9,7 +9,6 @@ import tourguide.beans.user.UserBean;
 import tourguide.beans.user.UserPreferencesBean;
 import tourguide.proxies.reward.TripPricerProxy;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,19 +21,24 @@ public class TestTripPricer {
     TripPricerProxy tripPricerProxy;
 
     @Test
-    public void userPreferenceGetSetTest_shouldCorreclySetAndGetAttrs() {
+    public void userPreferenceGetSetTestShouldCorreclySetAndGetAttrsTest() {
+
+        // Given
         UserPreferencesBean prefs = new UserPreferencesBean();
+
+        // When
         prefs.setAttractionProximity(10);
-        prefs.setHighPricePoint(BigDecimal.valueOf(100d), "EUR");
-        prefs.setLowerPricePoint(BigDecimal.valueOf(20.05), "EUR");
+        prefs.setHighPricePoint(100.00);
+        prefs.setLowerPricePoint(20.05);
         prefs.setNumberOfAdults(2);
         prefs.setNumberOfChildren(3);
         prefs.setTicketQuantity(5);
         prefs.setTripDuration(14);
 
+        // Then
         assertEquals(10, prefs.getAttractionProximity());
-//        assertEquals(100d,"EUR",prefs.setHighPricePoint());
-//        assertEquals(20.05, "EUR", String.valueOf(prefs.getLowerPricePoint()));
+        assertEquals(100.00, prefs.getHighPricePoint());
+        assertEquals(20.05, prefs.getLowerPricePoint());
         assertEquals(2, prefs.getNumberOfAdults());
         assertEquals(3, prefs.getNumberOfChildren());
         assertEquals(5, prefs.getTicketQuantity());
@@ -43,24 +47,27 @@ public class TestTripPricer {
     }
 
     @Test
-    public void tripPricerTest_shouldReturnSomeOffers() {
-//        final TripPricerBean tripPricer = Feign.builder().decoder(new GsonDecoder()).target(tourguide.beans.reward.TripPricerBean.class, TestPropertiesSocket.tripPricerSocket);
+    public void tripPricerTestShouldReturnSomeOffersTest() {
 
+        // Given
         UserPreferencesBean prefs = new UserPreferencesBean();
+        UserBean user = new UserBean(UUID.randomUUID(), "test", "0000", "test@test.com");
+
+        // When
         prefs.setAttractionProximity(10);
-//        prefs.setHighPricePoint(of(BigDecimal.valueOf(100d), "EUR"));
-//        prefs.setLowerPricePoint(of(BigDecimal.valueOf(20.05), "EUR"));
+        prefs.setHighPricePoint(100.00);
+        prefs.setLowerPricePoint(20.05);
         prefs.setNumberOfAdults(2);
         prefs.setNumberOfChildren(3);
         prefs.setTicketQuantity(5);
         prefs.setTripDuration(14);
-
-        UserBean user = new UserBean(UUID.randomUUID(), "test", "0000", "test@test.com");
         user.setUserPreferences(prefs);
 
         List<ProviderBean> providers = tripPricerProxy.getPrice("", user.getUserId(), user.getUserPreferences().getNumberOfAdults(),
-                user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), 10);
+         user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), 10);
 
+        // Then
         assertEquals(5, providers.size());
+
     }
 }

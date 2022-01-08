@@ -49,7 +49,7 @@ public class TourGuideController {
      * 12/12/2021
      */
     @GetMapping("/getLocation")
-    public String getLocation(@RequestParam("userName") String userName) throws ExecutionException, InterruptedException {
+    public String getLocation(@RequestParam("userName") String userName) {
         UserBean user = tourGuideServices.getUser(userName);
         VisitedLocationBean visitedLocation = tourGuideServices.getUserLocation(user);
         return JsonStream.serialize(visitedLocation.location);
@@ -130,8 +130,7 @@ public class TourGuideController {
     @GetMapping("/getHistoryUserLocation")
     public List<VisitedLocationBean> getUserHistory(@RequestParam("userName") String userName, @RequestParam("number") int numberLocation) {
         UserBean userBean = getUser(userName);
-        return tourGuideServices.generateUserLocationHistory(userBean, numberLocation);
-    }
+        return tourGuideServices.generateUserLocationHistory(userBean, numberLocation); }
 
     /**
      * Get  Full History User

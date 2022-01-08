@@ -1,7 +1,5 @@
 package tourguide.beans.user;
 
-import java.math.BigDecimal;
-
 public class UserPreferencesBean {
 
     private String userName;
@@ -86,9 +84,4 @@ public class UserPreferencesBean {
         this.numberOfChildren = numberOfChildren;
     }
 
-    public void setHighPricePoint(BigDecimal valueOf, String eur) {
-    }
-
-    public void setLowerPricePoint(BigDecimal valueOf, String eur) {
-    }
 }

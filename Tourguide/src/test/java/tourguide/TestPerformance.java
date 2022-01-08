@@ -63,6 +63,7 @@ public class TestPerformance {
     @Test
     @Order(1)
     public void highVolumeGetRewardsTest() throws InterruptedException {
+        // Given
         // Users should be incremented up to 100,000, and test finishes within 20 minutes
         TourGuideServices tourGuideServices = new TourGuideServices();
         RewardsService rewardsService = new RewardsService(gpsUtilProxy, rewardProxy);
@@ -75,6 +76,7 @@ public class TestPerformance {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
+        // When
         AttractionBean attraction = gpsUtilProxy.getAttractions().get(0);
         List<UserBean> allUsers = userProxy.userAll();
 
@@ -87,6 +89,7 @@ public class TestPerformance {
         executorService.shutdown();
         executorService.awaitTermination(21, TimeUnit.MINUTES);
 
+        // Then
         for (UserBean user : allUsers) {
             assertTrue(user.getUserRewards().size() > 0);
         }

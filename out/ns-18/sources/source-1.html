@@ -41,24 +41,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 <i class="no-highlight">2</i>&nbsp;
 <i class="no-highlight">3</i>&nbsp;import org.springframework.cloud.openfeign.FeignClient;
 <i class="no-highlight">4</i>&nbsp;import org.springframework.web.bind.annotation.GetMapping;
-<i class="no-highlight">5</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
-<i class="no-highlight">6</i>&nbsp;import tourguide.beans.user.UserBean;
-<i class="no-highlight">7</i>&nbsp;
-<i class="no-highlight">8</i>&nbsp;import java.util.List;
-<i class="no-highlight">9</i>&nbsp;
-<i class="no-highlight">10</i>&nbsp;@FeignClient(name = &quot;user&quot;, url = &quot;localhost:8082&quot;)
-<i class="no-highlight">11</i>&nbsp;public interface UserProxy {
-<i class="no-highlight">12</i>&nbsp;
-<i class="no-highlight">13</i>&nbsp;    @GetMapping(value = &quot;/getUser&quot;)
-<i class="no-highlight">14</i>&nbsp;    UserBean getUser(@RequestParam(&quot;userName&quot;) String userName);
-<i class="no-highlight">15</i>&nbsp;
-<i class="no-highlight">16</i>&nbsp;    @GetMapping(value = &quot;/getAllUser&quot;)
-<i class="no-highlight">17</i>&nbsp;    List&lt;UserBean&gt; userAll();
-<i class="no-highlight">18</i>&nbsp;
-<i class="no-highlight">19</i>&nbsp;    @GetMapping(value = &quot;/getInternalUser&quot;)
-<i class="no-highlight">20</i>&nbsp;    List&lt;UserBean&gt; getUserAllInternalUser(@RequestParam(&quot;number&quot;) int numberUser);
-<i class="no-highlight">21</i>&nbsp;
-<i class="no-highlight">22</i>&nbsp;}
+<i class="no-highlight">5</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i class="no-highlight">7</i>&nbsp;import tourguide.beans.user.UserBean;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;import java.util.List;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;@FeignClient(name = &quot;user&quot;, url = &quot;localhost:8082&quot;)
+<i class="no-highlight">12</i>&nbsp;public interface UserProxy {
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;    @RequestMapping(value = &quot;/getUser&quot;)
+<i class="no-highlight">15</i>&nbsp;    UserBean getUser(@RequestParam(&quot;userName&quot;) String userName);
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    @GetMapping(value = &quot;/getAllUser&quot;)
+<i class="no-highlight">18</i>&nbsp;    List&lt;UserBean&gt; userAll();
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;   @RequestMapping(value = &quot;/getInternalUser&quot;)
+<i class="no-highlight">21</i>&nbsp;    List&lt;UserBean&gt; getUserAllInternalUser(@RequestParam(&quot;number&quot;) int numberUser);
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -85,7 +86,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-01-02 21:29</div>
+    <div style="float:right;">generated on 2022-01-08 11:52</div>
 </div>
 </body>
 </html>

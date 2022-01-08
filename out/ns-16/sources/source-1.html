@@ -58,10 +58,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92,3%
+    84,6%
   </span>
   <span class="absValue">
-    (24/26)
+    (22/26)
   </span>
 </td>
 </tr>
@@ -78,67 +78,62 @@ Current scope:     <a href="../../index.html">all classes</a>
 <i class="no-highlight">3</i>&nbsp;import org.apache.commons.lang3.time.StopWatch;
 <i class="no-highlight">4</i>&nbsp;import org.slf4j.Logger;
 <i class="no-highlight">5</i>&nbsp;import org.slf4j.LoggerFactory;
-<i class="no-highlight">6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
-<i class="no-highlight">7</i>&nbsp;import tourguide.beans.user.UserBean;
-<i class="no-highlight">8</i>&nbsp;import tourguide.proxies.user.UserProxy;
-<i class="no-highlight">9</i>&nbsp;import tourguide.services.TourGuideServices;
-<i class="no-highlight">10</i>&nbsp;
-<i class="no-highlight">11</i>&nbsp;import java.util.List;
-<i class="no-highlight">12</i>&nbsp;import java.util.concurrent.ExecutorService;
-<i class="no-highlight">13</i>&nbsp;import java.util.concurrent.Executors;
-<i class="no-highlight">14</i>&nbsp;import java.util.concurrent.TimeUnit;
-<i class="no-highlight">15</i>&nbsp;
-<i class="no-highlight">16</i>&nbsp;public class Tracker extends Thread {
-<b class="fc"><i class="no-highlight">17</i>&nbsp;    private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(5);</b>
-<b class="fc"><i class="no-highlight">18</i>&nbsp;    private final ExecutorService executorService = Executors.newSingleThreadExecutor();</b>
-<i class="no-highlight">19</i>&nbsp;    private final TourGuideServices tourGuideServices;
-<i class="no-highlight">20</i>&nbsp;
-<i class="no-highlight">21</i>&nbsp;    @Autowired
-<i class="no-highlight">22</i>&nbsp;    UserProxy userService;
-<i class="no-highlight">23</i>&nbsp;
-<b class="fc"><i class="no-highlight">24</i>&nbsp;    private Logger logger = LoggerFactory.getLogger(Tracker.class);</b>
-<b class="fc"><i class="no-highlight">25</i>&nbsp;    private boolean stop = false;</b>
+<i class="no-highlight">6</i>&nbsp;import tourguide.beans.user.UserBean;
+<i class="no-highlight">7</i>&nbsp;import tourguide.services.TourGuideServices;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;import java.util.List;
+<i class="no-highlight">10</i>&nbsp;import java.util.concurrent.ExecutorService;
+<i class="no-highlight">11</i>&nbsp;import java.util.concurrent.Executors;
+<i class="no-highlight">12</i>&nbsp;import java.util.concurrent.TimeUnit;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;public class Tracker extends Thread {
+<b class="fc"><i class="no-highlight">15</i>&nbsp;    private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(5);</b>
+<b class="fc"><i class="no-highlight">16</i>&nbsp;    private final ExecutorService executorService = Executors.newSingleThreadExecutor();</b>
+<i class="no-highlight">17</i>&nbsp;    private final TourGuideServices tourGuideServices;
+<i class="no-highlight">18</i>&nbsp;
+<b class="fc"><i class="no-highlight">19</i>&nbsp;    private Logger logger = LoggerFactory.getLogger(Tracker.class);</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;    private boolean stop = false;</b>
+<i class="no-highlight">21</i>&nbsp;
+<b class="fc"><i class="no-highlight">22</i>&nbsp;    public Tracker(TourGuideServices tourGuideServices) {</b>
+<b class="fc"><i class="no-highlight">23</i>&nbsp;        this.tourGuideServices = tourGuideServices;</b>
+<b class="fc"><i class="no-highlight">24</i>&nbsp;        executorService.submit(this);</b>
+<i class="no-highlight">25</i>&nbsp;    }
 <i class="no-highlight">26</i>&nbsp;
-<b class="fc"><i class="no-highlight">27</i>&nbsp;    public Tracker(TourGuideServices tourGuideServices) {</b>
-<b class="fc"><i class="no-highlight">28</i>&nbsp;        this.tourGuideServices = tourGuideServices;</b>
-<b class="fc"><i class="no-highlight">29</i>&nbsp;        executorService.submit(this);</b>
-<i class="no-highlight">30</i>&nbsp;    }
-<i class="no-highlight">31</i>&nbsp;
-<i class="no-highlight">32</i>&nbsp;    /**
-<i class="no-highlight">33</i>&nbsp;     * Assures to shut down the Tracker thread
-<i class="no-highlight">34</i>&nbsp;     */
-<i class="no-highlight">35</i>&nbsp;    public void stopTracking() {
-<b class="fc"><i class="no-highlight">36</i>&nbsp;        stop = true;</b>
-<b class="fc"><i class="no-highlight">37</i>&nbsp;        executorService.shutdownNow();</b>
-<i class="no-highlight">38</i>&nbsp;    }
-<i class="no-highlight">39</i>&nbsp;
-<i class="no-highlight">40</i>&nbsp;    // Tracker Thread
-<i class="no-highlight">41</i>&nbsp;    @Override
-<i class="no-highlight">42</i>&nbsp;    public void run() {
-<b class="fc"><i class="no-highlight">43</i>&nbsp;        StopWatch stopWatch = new StopWatch();</b>
-<i class="no-highlight">44</i>&nbsp;        while (true) {
-<b class="fc"><i class="no-highlight">45</i>&nbsp;            if (Thread.currentThread().isInterrupted() || stop) {</b>
-<b class="nc"><i class="no-highlight">46</i>&nbsp;                logger.debug(&quot;Tracker stopping&quot;);</b>
-<b class="nc"><i class="no-highlight">47</i>&nbsp;                break;</b>
-<i class="no-highlight">48</i>&nbsp;            }
-<i class="no-highlight">49</i>&nbsp;
-<b class="fc"><i class="no-highlight">50</i>&nbsp;            List&lt;UserBean&gt; users = tourGuideServices.getAllUser();</b>
-<b class="fc"><i class="no-highlight">51</i>&nbsp;            logger.debug(&quot;Begin Tracker. Tracking &quot; + users.size() + &quot; users.&quot;);</b>
-<b class="fc"><i class="no-highlight">52</i>&nbsp;            stopWatch.start();</b>
-<b class="fc"><i class="no-highlight">53</i>&nbsp;            users.forEach(u -&gt; tourGuideServices.trackUserLocation(u));</b>
-<b class="fc"><i class="no-highlight">54</i>&nbsp;            stopWatch.stop();</b>
-<b class="fc"><i class="no-highlight">55</i>&nbsp;            logger.debug(&quot;Tracker Time Elapsed: &quot; + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + &quot; seconds.&quot;);</b>
-<b class="fc"><i class="no-highlight">56</i>&nbsp;            stopWatch.reset();</b>
-<i class="no-highlight">57</i>&nbsp;            try {
-<b class="fc"><i class="no-highlight">58</i>&nbsp;                logger.debug(&quot;Tracker sleeping&quot;);</b>
-<b class="fc"><i class="no-highlight">59</i>&nbsp;                TimeUnit.SECONDS.sleep(trackingPollingInterval);</b>
-<b class="fc"><i class="no-highlight">60</i>&nbsp;            } catch (InterruptedException e) {</b>
-<b class="fc"><i class="no-highlight">61</i>&nbsp;                break;</b>
-<b class="fc"><i class="no-highlight">62</i>&nbsp;            }</b>
-<b class="fc"><i class="no-highlight">63</i>&nbsp;        }</b>
-<i class="no-highlight">64</i>&nbsp;
-<i class="no-highlight">65</i>&nbsp;    }
-<i class="no-highlight">66</i>&nbsp;}
+<i class="no-highlight">27</i>&nbsp;    /**
+<i class="no-highlight">28</i>&nbsp;     * Assures to shut down the Tracker thread
+<i class="no-highlight">29</i>&nbsp;     */
+<i class="no-highlight">30</i>&nbsp;    public void stopTracking() {
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        stop = true;</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        executorService.shutdownNow();</b>
+<i class="no-highlight">33</i>&nbsp;    }
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    // Tracker Thread
+<i class="no-highlight">36</i>&nbsp;    @Override
+<i class="no-highlight">37</i>&nbsp;    public void run() {
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        StopWatch stopWatch = new StopWatch();</b>
+<i class="no-highlight">39</i>&nbsp;        while (true) {
+<b class="fc"><i class="no-highlight">40</i>&nbsp;            if (Thread.currentThread().isInterrupted() || stop) {</b>
+<b class="nc"><i class="no-highlight">41</i>&nbsp;                logger.debug(&quot;Tracker stopping&quot;);</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;                break;</b>
+<i class="no-highlight">43</i>&nbsp;            }
+<i class="no-highlight">44</i>&nbsp;
+<b class="fc"><i class="no-highlight">45</i>&nbsp;            List&lt;UserBean&gt; users = tourGuideServices.getAllUser();</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;            logger.debug(&quot;Begin Tracker. Tracking &quot; + users.size() + &quot; users.&quot;);</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;            stopWatch.start();</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;            users.forEach(u -&gt; tourGuideServices.trackUserLocation(u));</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;            stopWatch.stop();</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;            logger.debug(&quot;Tracker Time Elapsed: &quot; + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + &quot; seconds.&quot;);</b>
+<b class="fc"><i class="no-highlight">51</i>&nbsp;            stopWatch.reset();</b>
+<i class="no-highlight">52</i>&nbsp;            try {
+<b class="fc"><i class="no-highlight">53</i>&nbsp;                logger.debug(&quot;Tracker sleeping&quot;);</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;                TimeUnit.SECONDS.sleep(trackingPollingInterval);</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;            } catch (InterruptedException e) {</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;                break;</b>
+<b class="fc"><i class="no-highlight">57</i>&nbsp;            }</b>
+<b class="fc"><i class="no-highlight">58</i>&nbsp;        }</b>
+<i class="no-highlight">59</i>&nbsp;
+<i class="no-highlight">60</i>&nbsp;    }
+<i class="no-highlight">61</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -165,7 +160,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-01-02 21:29</div>
+    <div style="float:right;">generated on 2022-01-08 11:52</div>
 </div>
 </body>
 </html>

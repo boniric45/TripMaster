@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tourguide.beans.gpsutil.VisitedLocationBean;
 import tourguide.beans.user.UserBean;
-import tourguide.proxies.gpsutil.GpsUtilProxy;
-import tourguide.proxies.reward.RewardProxy;
 import tourguide.proxies.user.UserProxy;
 import tourguide.services.TourGuideServices;
 
@@ -20,24 +18,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestExecutorService {
 
     @Autowired
-    GpsUtilProxy gpsUtilProxy;
-
-    @Autowired
-    RewardProxy rewardProxy;
-
-    @Autowired
     UserProxy userProxy;
 
     @Test
     public void submitTrackUserLocationTask_shouldTerminateTheTaskBeforeElapsedTimeTest() throws InterruptedException, ExecutionException {
+
+        // Given
         userProxy.getUserAllInternalUser(10);
         TourGuideServices tourGuideServices = new TourGuideServices();
 
+        // When
         UserBean user = new UserBean(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
         Future<VisitedLocationBean> trackUserTask = tourGuideServices.trackUserLocation(user);
 
         tourGuideServices.tracker.stopTracking();
 
+        // Then
         Thread.sleep(5000);
         assertTrue(trackUserTask.isDone());
     }

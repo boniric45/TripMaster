@@ -182,16 +182,15 @@ public class TourGuideServices {
 
     /**
      * Create a list of all user last visited location
-     *
+     * New features
      * @return List<UserLastLocationDto>
      * @author Boniface Eric
      * 13/11/2021
      */
-    public List<UserLastLocationDto> getAllUserLastVisitedLocation() throws ExecutionException, InterruptedException {
+    public List<UserLastLocationDto> getAllUserLastVisitedLocation() {
         List<UserLastLocationDto> listLocation = new ArrayList<>();
         for (UserBean user : getAllUser()) {
-            System.out.println(user.getUserName());
-            UserLastLocationDto lastLocation = new UserLastLocationDto();
+             UserLastLocationDto lastLocation = new UserLastLocationDto();
             VisitedLocationBean visitedLocationBean = this.getUserLocation(user); // Get Location with userId
             lastLocation.setUserId(user.getUserId().toString());
             lastLocation.setLastLocation(visitedLocationBean.location);
@@ -459,7 +458,6 @@ public class TourGuideServices {
     public ExecutorService getExecutorService() {
         return executorService;
     }
-
 
 }
 

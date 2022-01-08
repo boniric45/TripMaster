@@ -97,108 +97,110 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc"><i class="no-highlight">22</i>&nbsp;    public static int attractionProximityRange = 200;</b>
 <i class="no-highlight">23</i>&nbsp;    private final GpsUtilProxy gpsUtil;
 <i class="no-highlight">24</i>&nbsp;    private final RewardProxy rewardsCentral;
-<b class="fc"><i class="no-highlight">25</i>&nbsp;    private final ExecutorService executorService = Executors.newFixedThreadPool(10000);</b>
-<b class="fc"><i class="no-highlight">26</i>&nbsp;    Logger logger = LoggerFactory.getLogger(RewardsService.class);</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;    private final ExecutorService executorService = Executors.newFixedThreadPool(1000);</b>
+<i class="no-highlight">26</i>&nbsp;
 <i class="no-highlight">27</i>&nbsp;    // proximity in miles
-<b class="fc"><i class="no-highlight">28</i>&nbsp;    private int defaultProximityBuffer = 10;</b>
-<b class="fc"><i class="no-highlight">29</i>&nbsp;    private int proximityBuffer = defaultProximityBuffer;</b>
-<i class="no-highlight">30</i>&nbsp;
-<i class="no-highlight">31</i>&nbsp;    // Constructor
-<b class="fc"><i class="no-highlight">32</i>&nbsp;    public RewardsService(GpsUtilProxy gpsUtil, RewardProxy rewardCentral) {</b>
-<b class="fc"><i class="no-highlight">33</i>&nbsp;        this.gpsUtil = gpsUtil;</b>
-<b class="fc"><i class="no-highlight">34</i>&nbsp;        this.rewardsCentral = rewardCentral;</b>
-<i class="no-highlight">35</i>&nbsp;    }
-<i class="no-highlight">36</i>&nbsp;
-<i class="no-highlight">37</i>&nbsp;    // Executor Service
-<i class="no-highlight">38</i>&nbsp;    public ExecutorService getExecutorService() {
-<b class="fc"><i class="no-highlight">39</i>&nbsp;        return executorService;</b>
-<i class="no-highlight">40</i>&nbsp;    }
-<i class="no-highlight">41</i>&nbsp;
-<i class="no-highlight">42</i>&nbsp;    public void setProximityBuffer(int proximityBuffer) {
-<b class="nc"><i class="no-highlight">43</i>&nbsp;        this.proximityBuffer = proximityBuffer;</b>
-<i class="no-highlight">44</i>&nbsp;    }
-<i class="no-highlight">45</i>&nbsp;
-<i class="no-highlight">46</i>&nbsp;    public void setDefaultProximityBuffer() {
-<b class="nc"><i class="no-highlight">47</i>&nbsp;        proximityBuffer = defaultProximityBuffer;</b>
-<i class="no-highlight">48</i>&nbsp;    }
-<i class="no-highlight">49</i>&nbsp;
-<i class="no-highlight">50</i>&nbsp;    /**
-<i class="no-highlight">51</i>&nbsp;     * Calculate Rewards
-<i class="no-highlight">52</i>&nbsp;     *
-<i class="no-highlight">53</i>&nbsp;     * @Param user
-<i class="no-highlight">54</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">55</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">56</i>&nbsp;     */
-<i class="no-highlight">57</i>&nbsp;    public void calculateRewards(UserBean user) {
-<i class="no-highlight">58</i>&nbsp;
-<b class="fc"><i class="no-highlight">59</i>&nbsp;        List&lt;VisitedLocationBean&gt; userLocations = user.getVisitedLocations();</b>
-<b class="fc"><i class="no-highlight">60</i>&nbsp;        List&lt;AttractionBean&gt; attractions = gpsUtil.getAttractions();</b>
-<i class="no-highlight">61</i>&nbsp;
-<b class="fc"><i class="no-highlight">62</i>&nbsp;        logger.debug(&quot;Entering calculate rewards for user: &quot; + user.getUserName());</b>
-<b class="fc"><i class="no-highlight">63</i>&nbsp;        for (VisitedLocationBean visitedLocation : userLocations) {</b>
-<b class="fc"><i class="no-highlight">64</i>&nbsp;            for (AttractionBean attraction : attractions) {</b>
-<b class="fc"><i class="no-highlight">65</i>&nbsp;                if (user.getUserRewards().stream().noneMatch(r -&gt; r.attraction.attractionName.equals(attraction.attractionName))) {</b>
-<b class="fc"><i class="no-highlight">66</i>&nbsp;                    if (nearAttraction(visitedLocation, attraction)) {</b>
-<b class="fc"><i class="no-highlight">67</i>&nbsp;                        logger.debug(&quot;Creating parallel task to retrieve user rewards for attraction: &quot; + attraction.attractionName);</b>
-<b class="fc"><i class="no-highlight">68</i>&nbsp;                        executorService.submit(() -&gt; {</b>
-<b class="fc"><i class="no-highlight">69</i>&nbsp;                            user.addUserReward(new UserRewardBean(visitedLocation, attraction, getRewardPoints(attraction, user)));</b>
-<i class="no-highlight">70</i>&nbsp;                        });
-<i class="no-highlight">71</i>&nbsp;                    }
-<i class="no-highlight">72</i>&nbsp;                }
-<b class="fc"><i class="no-highlight">73</i>&nbsp;            }</b>
-<b class="fc"><i class="no-highlight">74</i>&nbsp;        }</b>
-<i class="no-highlight">75</i>&nbsp;    }
-<i class="no-highlight">76</i>&nbsp;
-<i class="no-highlight">77</i>&nbsp;    public boolean isWithinAttractionProximity(AttractionBean attraction, LocationBean location) {
-<b class="nc"><i class="no-highlight">78</i>&nbsp;        return !(getDistance(attraction, location) &gt; attractionProximityRange);</b>
-<i class="no-highlight">79</i>&nbsp;    }
-<i class="no-highlight">80</i>&nbsp;
-<i class="no-highlight">81</i>&nbsp;    /**
-<i class="no-highlight">82</i>&nbsp;     * Get  Boolean if attraction is near
-<i class="no-highlight">83</i>&nbsp;     *
-<i class="no-highlight">84</i>&nbsp;     * @return Boolean
-<i class="no-highlight">85</i>&nbsp;     * @Param visitedLocation and attraction
-<i class="no-highlight">86</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">87</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">88</i>&nbsp;     */
-<i class="no-highlight">89</i>&nbsp;    private boolean nearAttraction(VisitedLocationBean visitedLocation, AttractionBean attraction) {
-<b class="fc"><i class="no-highlight">90</i>&nbsp;        return !(getDistance(attraction, visitedLocation.location) &gt; proximityBuffer);</b>
-<i class="no-highlight">91</i>&nbsp;    }
-<i class="no-highlight">92</i>&nbsp;
-<i class="no-highlight">93</i>&nbsp;    /**
-<i class="no-highlight">94</i>&nbsp;     * Get  Attraction Rewards Points
-<i class="no-highlight">95</i>&nbsp;     *
-<i class="no-highlight">96</i>&nbsp;     * @return int (Number Points)
-<i class="no-highlight">97</i>&nbsp;     * @Param attraction and user
-<i class="no-highlight">98</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">99</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">100</i>&nbsp;     */
-<i class="no-highlight">101</i>&nbsp;    public int getRewardPoints(AttractionBean attraction, UserBean user) {
-<b class="fc"><i class="no-highlight">102</i>&nbsp;        return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());</b>
-<i class="no-highlight">103</i>&nbsp;    }
-<i class="no-highlight">104</i>&nbsp;
-<i class="no-highlight">105</i>&nbsp;    /**
-<i class="no-highlight">106</i>&nbsp;     * Get  Distance
-<i class="no-highlight">107</i>&nbsp;     *
-<i class="no-highlight">108</i>&nbsp;     * @return double statuteMiles
-<i class="no-highlight">109</i>&nbsp;     * @Param loc1 and loc2 (LocationBean)
-<i class="no-highlight">110</i>&nbsp;     * @author Boniface Eric
-<i class="no-highlight">111</i>&nbsp;     * 12/12/2021
-<i class="no-highlight">112</i>&nbsp;     */
-<i class="no-highlight">113</i>&nbsp;    public double getDistance(LocationBean loc1, LocationBean loc2) {
-<b class="fc"><i class="no-highlight">114</i>&nbsp;        double lat1 = Math.toRadians(loc1.latitude);</b>
-<b class="fc"><i class="no-highlight">115</i>&nbsp;        double lon1 = Math.toRadians(loc1.longitude);</b>
-<b class="fc"><i class="no-highlight">116</i>&nbsp;        double lat2 = Math.toRadians(loc2.latitude);</b>
-<b class="fc"><i class="no-highlight">117</i>&nbsp;        double lon2 = Math.toRadians(loc2.longitude);</b>
-<i class="no-highlight">118</i>&nbsp;
-<b class="fc"><i class="no-highlight">119</i>&nbsp;        double angle = Math.acos(Math.sin(lat1) * Math.sin(lat2)</b>
-<b class="fc"><i class="no-highlight">120</i>&nbsp;                + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2));</b>
-<i class="no-highlight">121</i>&nbsp;
-<b class="fc"><i class="no-highlight">122</i>&nbsp;        double nauticalMiles = 60 * Math.toDegrees(angle);</b>
-<b class="fc"><i class="no-highlight">123</i>&nbsp;        double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;</b>
-<b class="fc"><i class="no-highlight">124</i>&nbsp;        return statuteMiles;</b>
-<i class="no-highlight">125</i>&nbsp;    }
-<i class="no-highlight">126</i>&nbsp;}
+<b class="fc"><i class="no-highlight">28</i>&nbsp;    private final int defaultProximityBuffer = 10;</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;    Logger logger = LoggerFactory.getLogger(RewardsService.class);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;    private int proximityBuffer = defaultProximityBuffer;</b>
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;    // Constructor
+<b class="fc"><i class="no-highlight">33</i>&nbsp;    public RewardsService(GpsUtilProxy gpsUtil, RewardProxy rewardCentral) {</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;        this.gpsUtil = gpsUtil;</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        this.rewardsCentral = rewardCentral;</b>
+<i class="no-highlight">36</i>&nbsp;    }
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;    // Executor Service
+<i class="no-highlight">39</i>&nbsp;    public ExecutorService getExecutorService() {
+<b class="fc"><i class="no-highlight">40</i>&nbsp;        return executorService;</b>
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    public void setProximityBuffer(int proximityBuffer) {
+<b class="nc"><i class="no-highlight">44</i>&nbsp;        this.proximityBuffer = proximityBuffer;</b>
+<i class="no-highlight">45</i>&nbsp;    }
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    public void setDefaultProximityBuffer() {
+<b class="nc"><i class="no-highlight">48</i>&nbsp;        proximityBuffer = defaultProximityBuffer;</b>
+<i class="no-highlight">49</i>&nbsp;    }
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    /**
+<i class="no-highlight">52</i>&nbsp;     * Calculate Rewards
+<i class="no-highlight">53</i>&nbsp;     *
+<i class="no-highlight">54</i>&nbsp;     * @Param user
+<i class="no-highlight">55</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">56</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">57</i>&nbsp;     */
+<i class="no-highlight">58</i>&nbsp;    public void calculateRewards(UserBean user) {
+<i class="no-highlight">59</i>&nbsp;
+<b class="fc"><i class="no-highlight">60</i>&nbsp;        List&lt;VisitedLocationBean&gt; userLocations = user.getVisitedLocations();</b>
+<b class="fc"><i class="no-highlight">61</i>&nbsp;        List&lt;AttractionBean&gt; attractions = gpsUtil.getAttractions();</b>
+<i class="no-highlight">62</i>&nbsp;
+<b class="fc"><i class="no-highlight">63</i>&nbsp;        logger.debug(&quot;Entering calculate rewards for user: &quot; + user.getUserName());</b>
+<b class="fc"><i class="no-highlight">64</i>&nbsp;        for (VisitedLocationBean visitedLocation : userLocations) {</b>
+<i class="no-highlight">65</i>&nbsp;
+<b class="fc"><i class="no-highlight">66</i>&nbsp;            for (AttractionBean attraction : attractions) {</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;                if (user.getUserRewards().stream().noneMatch(r -&gt; r.attraction.attractionName.equals(attraction.attractionName))) {</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;                    if (nearAttraction(visitedLocation, attraction)) {</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;                        logger.debug(&quot;Creating parallel task to retrieve user rewards for attraction: &quot; + attraction.attractionName);</b>
+<b class="fc"><i class="no-highlight">70</i>&nbsp;                        executorService.submit(() -&gt; {</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;                            user.addUserReward(new UserRewardBean(visitedLocation, attraction, getRewardPoints(attraction, user)));</b>
+<i class="no-highlight">72</i>&nbsp;                        });
+<i class="no-highlight">73</i>&nbsp;                    }
+<i class="no-highlight">74</i>&nbsp;                }
+<b class="fc"><i class="no-highlight">75</i>&nbsp;            }</b>
+<b class="fc"><i class="no-highlight">76</i>&nbsp;        }</b>
+<i class="no-highlight">77</i>&nbsp;    }
+<i class="no-highlight">78</i>&nbsp;
+<i class="no-highlight">79</i>&nbsp;    public boolean isWithinAttractionProximity(AttractionBean attraction, LocationBean location) {
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        return !(getDistance(attraction, location) &gt; attractionProximityRange);</b>
+<i class="no-highlight">81</i>&nbsp;    }
+<i class="no-highlight">82</i>&nbsp;
+<i class="no-highlight">83</i>&nbsp;    /**
+<i class="no-highlight">84</i>&nbsp;     * Get  Boolean if attraction is near
+<i class="no-highlight">85</i>&nbsp;     *
+<i class="no-highlight">86</i>&nbsp;     * @return Boolean
+<i class="no-highlight">87</i>&nbsp;     * @Param visitedLocation and attraction
+<i class="no-highlight">88</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">89</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">90</i>&nbsp;     */
+<i class="no-highlight">91</i>&nbsp;    private boolean nearAttraction(VisitedLocationBean visitedLocation, AttractionBean attraction) {
+<b class="fc"><i class="no-highlight">92</i>&nbsp;        return !(getDistance(attraction, visitedLocation.location) &gt; proximityBuffer);</b>
+<i class="no-highlight">93</i>&nbsp;    }
+<i class="no-highlight">94</i>&nbsp;
+<i class="no-highlight">95</i>&nbsp;    /**
+<i class="no-highlight">96</i>&nbsp;     * Get  Attraction Rewards Points
+<i class="no-highlight">97</i>&nbsp;     *
+<i class="no-highlight">98</i>&nbsp;     * @return int (Number Points)
+<i class="no-highlight">99</i>&nbsp;     * @Param attraction and user
+<i class="no-highlight">100</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">101</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">102</i>&nbsp;     */
+<i class="no-highlight">103</i>&nbsp;    public int getRewardPoints(AttractionBean attraction, UserBean user) {
+<b class="fc"><i class="no-highlight">104</i>&nbsp;        return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());</b>
+<i class="no-highlight">105</i>&nbsp;    }
+<i class="no-highlight">106</i>&nbsp;
+<i class="no-highlight">107</i>&nbsp;    /**
+<i class="no-highlight">108</i>&nbsp;     * Get  Distance
+<i class="no-highlight">109</i>&nbsp;     *
+<i class="no-highlight">110</i>&nbsp;     * @return double statuteMiles
+<i class="no-highlight">111</i>&nbsp;     * @Param loc1 and loc2 (LocationBean)
+<i class="no-highlight">112</i>&nbsp;     * @author Boniface Eric
+<i class="no-highlight">113</i>&nbsp;     * 12/12/2021
+<i class="no-highlight">114</i>&nbsp;     */
+<i class="no-highlight">115</i>&nbsp;    public double getDistance(LocationBean loc1, LocationBean loc2) {
+<b class="fc"><i class="no-highlight">116</i>&nbsp;        double lat1 = Math.toRadians(loc1.latitude);</b>
+<b class="fc"><i class="no-highlight">117</i>&nbsp;        double lon1 = Math.toRadians(loc1.longitude);</b>
+<b class="fc"><i class="no-highlight">118</i>&nbsp;        double lat2 = Math.toRadians(loc2.latitude);</b>
+<b class="fc"><i class="no-highlight">119</i>&nbsp;        double lon2 = Math.toRadians(loc2.longitude);</b>
+<i class="no-highlight">120</i>&nbsp;
+<b class="fc"><i class="no-highlight">121</i>&nbsp;        double angle = Math.acos(Math.sin(lat1) * Math.sin(lat2)</b>
+<b class="fc"><i class="no-highlight">122</i>&nbsp;                + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2));</b>
+<i class="no-highlight">123</i>&nbsp;
+<b class="fc"><i class="no-highlight">124</i>&nbsp;        double nauticalMiles = 60 * Math.toDegrees(angle);</b>
+<b class="fc"><i class="no-highlight">125</i>&nbsp;        double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;</b>
+<b class="fc"><i class="no-highlight">126</i>&nbsp;        return statuteMiles;</b>
+<i class="no-highlight">127</i>&nbsp;    }
+<i class="no-highlight">128</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -225,7 +227,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-01-02 21:29</div>
+    <div style="float:right;">generated on 2022-01-08 11:52</div>
 </div>
 </body>
 </html>
