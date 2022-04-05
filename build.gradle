@@ -1,6 +1,13 @@
 plugins {
     id 'java'
+    id 'com.avast.gradle.docker-compose' version '0.7.1'
 }
+
+dockerCompose {
+    useComposeFiles = ['docker-compose.yml']
+}
+
+
 
 group 'org.example'
 version '1.0-SNAPSHOT'
