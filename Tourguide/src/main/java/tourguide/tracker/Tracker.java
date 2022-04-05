@@ -7,16 +7,15 @@ import tourguide.beans.user.UserBean;
 import tourguide.services.TourGuideServices;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class Tracker extends Thread {
-    private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(5);
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(1);
+    final int nbProcs = Runtime.getRuntime().availableProcessors(); // Number of processors available on this machine
+    private final ExecutorService executorService = new ThreadPoolExecutor(nbProcs, 1000, 5L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
     private final TourGuideServices tourGuideServices;
 
-    private Logger logger = LoggerFactory.getLogger(Tracker.class);
+    private final Logger logger = LoggerFactory.getLogger(Tracker.class);
     private boolean stop = false;
 
     public Tracker(TourGuideServices tourGuideServices) {
@@ -45,7 +44,7 @@ public class Tracker extends Thread {
             List<UserBean> users = tourGuideServices.getAllUser();
             logger.debug("Begin Tracker. Tracking " + users.size() + " users.");
             stopWatch.start();
-            users.forEach(u -> tourGuideServices.trackUserLocation(u));
+            users.forEach(tourGuideServices::trackUserLocation);
             stopWatch.stop();
             logger.debug("Tracker Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
             stopWatch.reset();
@@ -56,6 +55,5 @@ public class Tracker extends Thread {
                 break;
             }
         }
-
     }
 }

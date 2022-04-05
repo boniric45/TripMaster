@@ -39,7 +39,7 @@ public class TestPerformance {
     @Autowired
     RewardProxy rewardProxy;
 
-    private Logger logger = LoggerFactory.getLogger(TestPerformance.class);
+    private final Logger logger = LoggerFactory.getLogger(TestPerformance.class);
 
 //    /*
 //     * A note on performance improvements:
@@ -70,7 +70,7 @@ public class TestPerformance {
 
         logger.info("TestMode enabled");
         logger.debug("Initializing users");
-        userProxy.getUserAllInternalUser(100000); // Voir si j'ai le droit
+        userProxy.getUserAllInternalUser(100000);
         logger.debug("Finished initializing users");
 
         StopWatch stopWatch = new StopWatch();
@@ -81,7 +81,7 @@ public class TestPerformance {
         List<UserBean> allUsers = userProxy.userAll();
 
         for (UserBean user : allUsers) {
-            user.addToVisitedLocations(new VisitedLocationBean(user.getUserId(), attraction, new Date()));
+           user.addToVisitedLocations(new VisitedLocationBean(user.getUserId(), attraction, new Date()));
             rewardsService.calculateRewards(user);
         }
 
