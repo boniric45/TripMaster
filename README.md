@@ -2,16 +2,20 @@
 
 To create the docker containers, enter the following commands in a terminal:
 
-1 - docker build -t tourguide_gpsutil .
+1 - Install Docker 
 
-2 - docker  run -d -p 8081:8081 --name Tourguide_gpsutil tourguide_gpsutil
+https://www.docker.com/products/docker-desktop
 
-3 - docker build -t tourguide_user .
+2 - in the directory tripmaster
 
-4 - docker  run -d -p 8082:8082 --name Tourguide_user tourguide_user
+3 - type in console: docker-compose up -d
 
-5 - docker build -t tourguide_rewards .
+4 - Tourguide GpsUtil: http://localhost:8081
 
-6 - docker  run -d -p 8083:8083 --name Tourguide_rewards tourguide_rewards
+5 - Tourguide User: http://localhost:8082
 
-For Test add JVM Option this :  -Xms256m -Xmx2048m
+6 - Tourguide Rewards: http://localhost:8083
+
+To run the test: 
+
+Launch Api_Tourguide application and run the test

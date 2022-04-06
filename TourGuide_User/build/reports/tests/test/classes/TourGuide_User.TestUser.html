@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - TestUser</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>TestUser</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/TourGuide_User.html">TourGuide_User</a> &gt; TestUser</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">4</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.056s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">getAllUserTest()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getHomeTest()</td>
+<td class="success">0.044s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getReturnUserByUserNameIsNullTest()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getReturnUserByUserNameTest()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-04-06 08:20:55.808  INFO 20396 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [TourGuide_User.TestUser], using SpringBootContextLoader
+2022-04-06 08:20:55.809  INFO 20396 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [TourGuide_User.TestUser]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-04-06 08:20:55.809  INFO 20396 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [TourGuide_User.TestUser]: TestUser does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-04-06 08:20:55.813  INFO 20396 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration TourGuide_User.Api_User for test class TourGuide_User.TestUser
+2022-04-06 08:20:55.814  INFO 20396 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-04-06 08:20:55.815  INFO 20396 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3af7d855, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@77049094, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@f88bfbe, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@59bbe88a, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5d8ab698, org.springframework.test.context.support.DirtiesContextTestExecutionListener@ed91d8d, org.springframework.test.context.event.EventPublishingTestExecutionListener@446626a7, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@429f7919, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4a2929a4, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@cda6019, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@797c3c3b, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@4012d5bc, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4375b013]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.1)
+
+2022-04-06 08:20:55.837  INFO 20396 --- [    Test worker] TourGuide_User.TestUser                  : Starting TestUser using Java 1.8.0_302 on DESKTOP-FA0T68S with PID 20396 (started by Eric in D:\Openclassrooms\Projet8\Work\Test\TripMaster\TourGuide_User)
+2022-04-06 08:20:55.837 DEBUG 20396 --- [    Test worker] TourGuide_User.TestUser                  : Running with Spring Boot v2.6.1, Spring v5.3.13
+2022-04-06 08:20:55.837  INFO 20396 --- [    Test worker] TourGuide_User.TestUser                  : No active profile set, falling back to default profiles: default
+2022-04-06 08:20:56.192  INFO 20396 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-04-06 08:20:56.192  INFO 20396 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-04-06 08:20:56.193  INFO 20396 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2022-04-06 08:20:56.199  INFO 20396 --- [    Test worker] TourGuide_User.TestUser                  : Started TestUser in 0.382 seconds (JVM running for 2.697)
+2022-04-06 08:20:56.205 DEBUG 20396 --- [    Test worker] TourGuide_User.services.UserServices     : Created 4 internal test users.
+2022-04-06 08:20:56.212 DEBUG 20396 --- [    Test worker] TourGuide_User.services.UserServices     : Created 100 internal test users.
+2022-04-06 08:20:56.239  INFO 20396 --- [    Test worker] T.controller.UserController              : GET /User Home
+2022-04-06 08:20:56.260 DEBUG 20396 --- [    Test worker] TourGuide_User.services.UserServices     : Created 100 internal test users.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.3</a> at 6 avr. 2022 08:20:56</p>
+</div>
+</div>
+</body>
+</html>

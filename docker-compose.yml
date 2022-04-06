@@ -1,0 +1,30 @@
+version: "3.4"
+services:
+
+  gpsutil:
+    image: "tourguide_gpsutil"
+    container_name: "GpsUtil"
+    build:
+      context: "TourGuide_GpsUtil"
+      dockerfile: "Dockerfile"
+    ports:
+      - "8081:8081"
+
+  user:
+    image: "tourguide_user"
+    container_name: "User"
+    build:
+      context: "TourGuide_User"
+      dockerfile: "Dockerfile"
+    ports:
+      - "8082:8082"
+
+  rewards:
+    image: "tourguide_rewards"
+    container_name: "Rewards"
+    build:
+      context: "TourGuide_Rewards"
+      dockerfile: "Dockerfile"
+    ports:
+      - "8083:8083"
+

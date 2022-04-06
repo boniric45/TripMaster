@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TourGuide_Rewards.rewards.TestRewards" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-06T06:20:43" hostname="DESKTOP-FA0T68S" time="0.456">
+  <properties/>
+  <testcase name="getAttractionRewardPointsTest()" classname="TourGuide_Rewards.rewards.TestRewards" time="0.413"/>
+  <testcase name="getHomeTest()" classname="TourGuide_Rewards.rewards.TestRewards" time="0.042"/>
+  <system-out><![CDATA[2022-04-06 08:20:42.917  INFO 18824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [TourGuide_Rewards.rewards.TestRewards], using SpringBootContextLoader
+2022-04-06 08:20:42.917  INFO 18824 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [TourGuide_Rewards.rewards.TestRewards]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-04-06 08:20:42.918  INFO 18824 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [TourGuide_Rewards.rewards.TestRewards]: TestRewards does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-04-06 08:20:42.925  INFO 18824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration TourGuide_Rewards.Api_Rewards for test class TourGuide_Rewards.rewards.TestRewards
+2022-04-06 08:20:42.926  INFO 18824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-04-06 08:20:42.927  INFO 18824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@435cc7f9, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4364712f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@1b7a52dd, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7f93dd4e, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5ad5be4a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3ad85136, org.springframework.test.context.event.EventPublishingTestExecutionListener@737d100a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@12e5da86, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6535117e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1d1cbd0f, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6fa13e6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3af7d855, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@77049094]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.1)
+
+2022-04-06 08:20:42.951  INFO 18824 --- [    Test worker] TourGuide_Rewards.rewards.TestRewards    : Starting TestRewards using Java 1.8.0_302 on DESKTOP-FA0T68S with PID 18824 (started by Eric in D:\Openclassrooms\Projet8\Work\Test\TripMaster\TourGuide_Rewards)
+2022-04-06 08:20:42.952  INFO 18824 --- [    Test worker] TourGuide_Rewards.rewards.TestRewards    : No active profile set, falling back to default profiles: default
+2022-04-06 08:20:43.283  INFO 18824 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-04-06 08:20:43.283  INFO 18824 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-04-06 08:20:43.283  INFO 18824 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2022-04-06 08:20:43.288  INFO 18824 --- [    Test worker] TourGuide_Rewards.rewards.TestRewards    : Started TestRewards in 0.359 seconds (JVM running for 2.659)
+2022-04-06 08:20:43.292  INFO 18824 --- [    Test worker] T.controller.RewardsController           : GET /getAttractionRewardPoints with param; attractionId: 9eba3d1d-f83c-4f4f-941e-c5fcdc9341ac, userId: 1104602c-fd35-4c9f-b6ae-6c6de8ec196a
+2022-04-06 08:20:43.728  INFO 18824 --- [    Test worker] T.controller.RewardsController           : GET /home Rewards
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
